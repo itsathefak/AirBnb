@@ -2,6 +2,8 @@ const express = require("express");
 const mongoose = require("mongoose");
 const app = express();
 require("dotenv").config();
+const Listing = require("./Models/listing");
+const path = require("path");
 
 // DB Connection
 const connectDB = async () => {
@@ -15,6 +17,15 @@ const connectDB = async () => {
 };
 
 connectDB();
+
+app.set("view engine", "ejs");
+app.set("views", path.join(__dirname, "views"));
+
+// Index Route
+app.get("/listings", async (req, res) => {
+  const allListings = await Listing.find();
+  res.render("listings/index.ejs", { allListings });
+});
 
 app.get("/", (req, res) => {
   res.send("Hi, I am root");
