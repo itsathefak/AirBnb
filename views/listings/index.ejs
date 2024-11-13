@@ -16,7 +16,10 @@
 <ul>
     <% for( let listings of allListings){ %>
         <li>
-            <%= listings.title %>
+            <a href="/listings/<%= listings._id %>">
+                <%= listings.title %>
+            </a>
+
         </li>
         <% } %>
 </ul>
