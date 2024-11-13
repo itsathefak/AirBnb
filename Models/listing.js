@@ -1,17 +1,22 @@
 const mongoose = require("mongoose");
-const Schema = mongoose.schema();
+const Schema = mongoose.Schema;
 
 const listingSchema = new Schema({
   title: { type: String, required: true },
   description: String,
   image: {
-    type: String,
-    default:
-      "https://images.pexels.com/photos/3278215/pexels-photo-3278215.jpeg",
-    set: (v) =>
-      v === ""
-        ? "https://images.pexels.com/photos/3278215/pexels-photo-3278215.jpeg"
-        : v,
+    type: {
+      filename: String,
+      url: {
+        type: String,
+        default:
+          "https://images.pexels.com/photos/3278215/pexels-photo-3278215.jpeg",
+      },
+    },
+    default: {
+      filename: "defaultImage",
+      url: "https://images.pexels.com/photos/3278215/pexels-photo-3278215.jpeg",
+    },
   },
   price: Number,
   location: String,
@@ -19,4 +24,4 @@ const listingSchema = new Schema({
 });
 
 const Listing = mongoose.model("Listing", listingSchema);
-modules.export = Listing;
+module.exports = Listing;
