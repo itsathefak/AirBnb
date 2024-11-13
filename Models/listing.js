@@ -6,16 +6,16 @@ const listingSchema = new Schema({
   description: String,
   image: {
     type: {
-      filename: String,
+      filename: { type: String, default: "defaultImage" },
       url: {
         type: String,
         default:
-          "https://images.pexels.com/photos/3278215/pexels-photo-3278215.jpeg",
+          "https://static.vecteezy.com/system/resources/previews/037/248/582/large_2x/ai-generated-travelling-to-thailand-advertisment-background-with-copy-space-free-photo.jpg",
       },
     },
     default: {
       filename: "defaultImage",
-      url: "https://images.pexels.com/photos/3278215/pexels-photo-3278215.jpeg",
+      url: "https://static.vecteezy.com/system/resources/previews/037/248/582/large_2x/ai-generated-travelling-to-thailand-advertisment-background-with-copy-space-free-photo.jpg",
     },
   },
   price: Number,
