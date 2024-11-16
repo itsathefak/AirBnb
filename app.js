@@ -6,6 +6,7 @@ const Listing = require("./Models/listing");
 const path = require("path");
 const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
+const wrapAsync = require("./utils/wrapAsync");
 
 // DB Connection
 const connectDB = async () => {
@@ -68,15 +69,14 @@ app.delete("/listings/:id", async (req, res) => {
 });
 
 // Create Route
-app.post("/listings", async (req, res) => {
-  try {
+app.post(
+  "/listings",
+  wrapAsync(async (req, res) => {
     const newListing = new Listing(req.body.listing);
     await newListing.save();
     res.redirect("/listings");
-  } catch (err) {
-    next(err);
-  }
-});
+  })
+);
 
 // Error Middleware
 
