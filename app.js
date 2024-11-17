@@ -8,6 +8,7 @@ const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
 const wrapAsync = require("./utils/wrapAsync");
 const ExpressError = require("./utils/ExpressError");
+const { listingSchema } = require("./schema.js");
 
 // DB Connection
 const connectDB = async () => {
@@ -91,8 +92,10 @@ app.delete(
 app.post(
   "/listings",
   wrapAsync(async (req, res) => {
-    if (!req.body.listing) {
-      throw new ExpressError(400, "Send Valid Data for Listing");
+    let result = listingSchema.validate(req.body);
+    console.log(result);
+    if (result.error) {
+      throw new ExpressError(400, result.error);
     }
     const newListing = new Listing(req.body.listing);
     await newListing.save();
