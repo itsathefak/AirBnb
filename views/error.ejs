@@ -1,0 +1,15 @@
+<% layout("/layouts/boilerplate") %>
+
+    <div class="row mt-4">
+        <div class="alert alert-danger col-6 offset-3 d-flex align-items-center" role="alert">
+            <!-- Bootstrap Danger Icon with flex and margin spacing classes -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
+                class="bi bi-exclamation-circle-fill me-2" viewBox="0 0 16 16">
+                <path
+                    d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zm0 12a1 1 0 1 1 0-2 1 1 0 0 1 0 2zm0-4a1 1 0 0 1-.8-1.6l1-4a1 1 0 1 1 1.6.8l-1 4a1 1 0 0 1-.8.8z" />
+            </svg>
+            <p class="alert-heading mb-0">
+                <%= message %>
+            </p>
+        </div>
+    </div>
