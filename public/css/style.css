@@ -65,7 +65,7 @@ body {
 
 /* Cards */
 
-.card {
+.listing-card {
     border: none !important;
     border-bottom: 2rem;
 }
