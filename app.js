@@ -9,6 +9,7 @@ const ejsMate = require("ejs-mate");
 const wrapAsync = require("./utils/wrapAsync");
 const ExpressError = require("./utils/ExpressError");
 const { listingSchema } = require("./schema.js");
+const { reviewSchema } = require("./schema.js");
 const Review = require("./Models/review.js");
 
 // DB Connection
@@ -31,6 +32,7 @@ app.use(methodOverride("_method"));
 app.engine("ejs", ejsMate);
 app.use(express.static(path.join(__dirname, "/public")));
 
+// Validate Listing
 const validateListing = (req, res, next) => {
   let { error } = listingSchema.validate(req.body);
   if (error) {
@@ -39,7 +41,22 @@ const validateListing = (req, res, next) => {
         el.message;
       })
       .join(",");
-    throw new ExpressError(400, error);
+    throw new ExpressError(400, errMsg);
+  } else {
+    next();
+  }
+};
+
+// Validate Review
+const validateReview = (req, res, next) => {
+  let { error } = reviewSchema.validate(req.body);
+  if (error) {
+    let errMsg = error.details
+      .map((el) => {
+        el.message;
+      })
+      .join(",");
+    throw new ExpressError(400, errMsg);
   } else {
     next();
   }
@@ -116,17 +133,21 @@ app.post(
 );
 
 // Review Route
-app.post("/listings/:id/reviews", async (req, res) => {
-  let listing = await Listing.findById(req.params.id);
-  let newReview = new Review(req.body.review);
+app.post(
+  "/listings/:id/reviews",
+  validateReview,
+  wrapAsync(async (req, res) => {
+    let listing = await Listing.findById(req.params.id);
+    let newReview = new Review(req.body.review);
 
-  listing.reviews.push(newReview);
+    listing.reviews.push(newReview);
 
-  await newReview.save();
-  await listing.save();
+    await newReview.save();
+    await listing.save();
 
-  res.redirect(`/listings/${listing.id}`);
-});
+    res.redirect(`/listings/${listing.id}`);
+  })
+);
 
 // Page not found error
 
