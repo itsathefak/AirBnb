@@ -51,7 +51,6 @@
                 <% for(review of listing.reviews) { %>
                     <div class="card col-5 mb-3 ms-3 ">
                         <div class="card-body">
-
                             <h5 class="card-title">Athef Ak</h5>
                             <p class="card-text">
                                 <%= review.comment %>
@@ -59,7 +58,10 @@
                             <p class="card-text">
                                 <%= review.rating %> Stars
                             </p>
-
+                            <form class="mb-3" method="post"
+                                action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=DELETE">
+                                <button class="btn btn-sm btn-dark">Delete</button>
+                            </form>
                         </div>
                     </div>
                     <% } %>
