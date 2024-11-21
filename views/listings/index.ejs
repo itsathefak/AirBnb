@@ -1,31 +1,30 @@
 <% layout("/layouts/boilerplate") %>
-    <%= success %>
 
-        <h3>All Listings</h3>
-        <!-- <form method="get" action="/listings/new">
+    <h3>All Listings</h3>
+    <!-- <form method="get" action="/listings/new">
         <button>Create New Listing</button>
     </form> -->
 
-        <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1">
-            <% for (let listings of allListings) { %>
-                <a href="/listings/<%= listings._id %>" class="listing-link">
-                    <div class="card col listing-card">
-                        <img src="<%= listings.image.url %>" class="card-img-top" alt="listings_image"
-                            style="height: 20rem;">
-                        <div class="card-img-overlay"></div>
-                        <div class="card-body">
-                            <p class="card-text">
-                                <b>
-                                    <%= listings.title %> <br>
-                                </b>
-                                <% if (listings.price !==undefined) { %>
-                                    <%= listings.price.toLocaleString("en-US") %> / Night
-                                        <% } else { %>
-                                            Price not available
-                                            <% } %>
-                            </p>
-                        </div>
+    <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1">
+        <% for (let listings of allListings) { %>
+            <a href="/listings/<%= listings._id %>" class="listing-link">
+                <div class="card col listing-card">
+                    <img src="<%= listings.image.url %>" class="card-img-top" alt="listings_image"
+                        style="height: 20rem;">
+                    <div class="card-img-overlay"></div>
+                    <div class="card-body">
+                        <p class="card-text">
+                            <b>
+                                <%= listings.title %> <br>
+                            </b>
+                            <% if (listings.price !==undefined) { %>
+                                <%= listings.price.toLocaleString("en-US") %> / Night
+                                    <% } else { %>
+                                        Price not available
+                                        <% } %>
+                        </p>
                     </div>
-                </a>
-                <% } %>
-        </div>
+                </div>
+            </a>
+            <% } %>
+    </div>
