@@ -67,18 +67,6 @@ app.use((req, res, next) => {
   next();
 });
 
-// Demo User
-
-app.get("/demouser", (req, res) => {
-  let fakeUser = new User({
-    email: "student@gmail.com",
-    username: "delta-student ",
-  });
-
-  let registeredUser = User.register(fakeUser, "helloworld");
-  res.send(registeredUser);
-});
-
 // Routes
 app.use("/listings", listingRouter);
 app.use("/listings/:id/reviews", reviewRouter);
