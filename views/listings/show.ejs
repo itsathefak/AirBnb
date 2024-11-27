@@ -11,10 +11,20 @@
             <div class="card-body">
                 <p class="card-text">
 
-                    <%= listing.description %> <br>
-                        $ <%= listing.price.toLocaleString("en-US") %> <br>
-                            <%= listing.location %> <br>
-                                <%= listing.country %> <br>
+                <p class="card-text">
+                    <%= listing.description %>
+                </p>
+                <p class="card-text">Price : $ <%= listing.price.toLocaleString("en-US") %> <br> </p>
+                <p class="card-text">
+                    Location : <%= listing.location %> <br>
+                </p>
+                <p class="card-text">
+                    Country : <%= listing.country %> <br>
+                </p>
+                <p class="card-text"> Owner : <i>
+                        <%= listing.owner.username %> <br>
+                    </i> </p>
+
 
 
                 </p>
