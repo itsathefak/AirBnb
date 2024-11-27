@@ -64,6 +64,7 @@ passport.deserializeUser(User.deserializeUser()); // Removes the user informatio
 app.use((req, res, next) => {
   res.locals.success = req.flash("success");
   res.locals.error = req.flash("error");
+  res.locals.currUser = req.user; //To store the current user , and to use it in nav ejs
   next();
 });
 
