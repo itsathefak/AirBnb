@@ -4,10 +4,12 @@ const User = require("../Models/user.js");
 const wrapAsync = require("../utils/wrapAsync");
 const passport = require("passport");
 
+// Signup Get
 router.get("/signup", (req, res) => {
   res.render("users/signup.ejs");
 });
 
+// Signup Post
 router.post(
   "/signup",
   wrapAsync(async (req, res) => {
@@ -20,8 +22,13 @@ router.post(
 
       console.log("Registered User:", registeredUser);
 
-      req.flash("success", "Welcome to Stay Luxe!");
-      res.redirect("/listings");
+      req.login(registeredUser, (err) => {
+        if (err) {
+          return next(err);
+        }
+        req.flash("success", "Welcome to Stay Luxe!");
+        res.redirect("/listings");
+      });
     } catch (err) {
       req.flash("error", err.message);
       res.redirect("/signup");
