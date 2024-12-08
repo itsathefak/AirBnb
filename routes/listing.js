@@ -4,7 +4,8 @@ const wrapAsync = require("../utils/wrapAsync");
 const { isLoggedIn, isOwner, validateListing } = require("../middelware.js");
 const listingController = require("../controllers/listings.js");
 const multer = require("multer");
-const upload = multer({ dest: "uploads/" });
+const { storage } = require("../cloudConfig.js");
+const upload = multer({ storage });
 
 // Index route
 router.route("/").post(upload.single("listing[image]"), (req, res) => {
