@@ -7,27 +7,24 @@ const { saveRedirectUrl } = require("../middelware.js");
 
 const userController = require("../controllers/users.js");
 
-// Signup Get
-router.get("/signup", userController.renderSignupForm);
+// Signup Route
+router
+  .route("/signup")
+  .get(userController.renderSignupForm)
+  .post(wrapAsync(userController.signup));
 
-// Signup Post
-router.post("/signup", wrapAsync(userController.signup));
-
-// Login Page
-
-router.get("/login", userController.renderLoginForm);
-
-// Login post route
-
-router.post(
-  "/login",
-  saveRedirectUrl,
-  passport.authenticate("local", {
-    failureRedirect: "/login",
-    failureFlash: true,
-  }),
-  userController.login
-);
+// Login Route
+router
+  .route("/login")
+  .get(userController.renderLoginForm)
+  .post(
+    saveRedirectUrl,
+    passport.authenticate("local", {
+      failureRedirect: "/login",
+      failureFlash: true,
+    }),
+    userController.login
+  );
 
 // Logout
 
