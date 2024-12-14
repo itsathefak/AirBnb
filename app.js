@@ -67,6 +67,11 @@ const sessionOptions = {
 app.use(session(sessionOptions));
 app.use(flash());
 
+// Root Route
+app.get("/", (req, res) => {
+  res.redirect("/listings");
+});
+
 // Passport
 app.use(passport.initialize());
 app.use(passport.session());
@@ -100,10 +105,6 @@ app.use((err, req, res, next) => {
   let { statusCode = 500, message = "Something Went Wrong" } = err;
   res.status(statusCode).render("error.ejs", { message });
   // res.status(statusCode).send(message);
-});
-
-app.get("/", (req, res) => {
-  res.redirect("/listings");
 });
 
 app.listen(8080, () => {
