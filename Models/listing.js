@@ -6,11 +6,8 @@ const listingSchema = new Schema({
   title: { type: String, required: true },
   description: String,
   image: {
-    url: {
-      type: String,
-      default:
-        "https://static.vecteezy.com/system/resources/previews/037/248/582/large_2x/ai-generated-travelling-to-thailand-advertisment-background-with-copy-space-free-photo.jpg",
-    },
+    url: String,
+    filename: String,
   },
   price: { type: Number, required: true },
   location: { type: String, required: true },
