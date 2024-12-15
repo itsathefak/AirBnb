@@ -27,6 +27,32 @@ body {
     /* important is for overridding bootstrap */
 }
 
+/* Navbar background color */
+.navbar {
+    z-index: 1000;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+/* Ensure the expanded menu has a background */
+.navbar-collapse {
+    background-color: #ffffff;
+    /* Dark background for the expanded menu */
+    color: rgb(255, 0, 0);
+}
+
+/* Adjust the navbar items for better visibility */
+.navbar-nav .nav-item {
+    padding: 10px 15px;
+}
+
+/* Adjust the links' color in the expanded menu */
+.navbar-nav .nav-link {
+    color: white;
+    padding: 8px 20px;
+}
+
+
 /* Footer */
 
 .f-info-links a {
@@ -88,6 +114,16 @@ body {
     text-decoration: none;
 }
 
+
+/* Mobile Adjustments */
+@media (max-width: 576px) {
+    .card {
+        margin: 0 auto;
+        /* Center the card on mobile */
+    }
+}
+
+
 /* Card Effect */
 
 .card-img-overlay {
@@ -128,7 +164,25 @@ body {
 
 /* Maps */
 
-#map {
+.map-container {
     height: 400px;
-    width: 80vh;
+    width: 100%;
+    margin: auto;
+}
+
+@media (max-width: 768px) {
+
+    .starability-slot {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .card {
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    #map {
+        height: 200px;
+    }
 }
