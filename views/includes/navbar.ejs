@@ -1,3 +1,98 @@
+<style>
+    .search-btn {
+        background-color: #fe424d;
+        color: #fff;
+        border-radius: 25px;
+        padding: 0.5rem 1rem;
+        font-size: 1rem;
+    }
+
+    .search-btn:hover {
+        background-color: #c6000d;
+        color: #fff;
+    }
+
+    .search-btn i {
+        display: inline;
+        margin-right: 0.5rem;
+    }
+
+    .search-input {
+        border-radius: 25px;
+        padding: 0.5rem 3rem;
+        font-size: 1rem;
+        width: 100%;
+    }
+
+    .search-input:focus {
+        border-color: #fe424d !important;
+        /* Set the border color to #fe424d */
+        box-shadow: 0 0 0 0.25rem rgba(254, 66, 77, 0.25) !important;
+        /* Optional: Add a soft shadow to match the border color */
+        outline: none;
+        /* Remove default outline */
+    }
+
+    /* Normal styling for the List Luxe link */
+    .nav-item.nav-link {
+        color: #555;
+        /* Default text color */
+        transition: color 0.3s ease, background-color 0.3s ease, padding 0.3s ease;
+        /* Smooth transition for color, background and padding */
+        display: inline-block;
+        /* Ensures padding works correctly on the link */
+        padding: 0.5rem 1rem;
+        /* Set initial padding for consistency */
+        border-radius: 25px;
+        /* Rounded corners */
+    }
+
+    /* Hover effect for List Luxe link */
+    .nav-item.nav-link:hover {
+        color: #fff !important;
+        /* White text on hover */
+        background-color: #fe424d;
+        /* Background color on hover */
+        padding: 0.5rem 1rem;
+        /* Maintain consistent padding when hovered */
+    }
+
+
+
+
+    /* Make the search bar and button responsive */
+    @media (max-width: 767px) {
+        .navbar-nav {
+            flex-direction: column;
+            text-align: center;
+        }
+
+        /* Ensure Explore link is first on mobile view */
+        .navbar-nav .nav-item:first-child {
+            order: -1;
+            /* Move the first item (Explore) to the top */
+        }
+
+        .mobile-search-bar {
+            order: 1;
+            /* Keeps the search bar below Explore in mobile */
+            width: 100%;
+        }
+
+        .search-btn {
+            padding: 0.5rem 1rem;
+            font-size: 1rem;
+        }
+
+        .search-input {
+            padding: 0.5rem 2rem;
+            font-size: 1rem;
+            width: 100%;
+        }
+    }
+</style>
+
+
 <nav class="navbar navbar-expand-md navbar-light bg-body-light border-bottom sticky-top">
     <a class="navbar-brand" href="/listings"><i class="fa-regular fa-compass"></i></a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
@@ -9,7 +104,17 @@
             <a class="nav-item nav-link" href="/listings">Explore</a>
         </div>
         <div class="navbar-nav ms-auto">
-            <a class="nav-item nav-link" href="/listings/new">List Luxe</a>
+            <form class="d-flex" role="search">
+                <input class="form-control me-2 search-input" type="search" placeholder="Search Destination"
+                    aria-label="Search">
+                <button class="btn search-btn my-2 my-sm-0" type="submit"><i
+                        class="fa-solid fa-magnifying-glass"></i>Search</button>
+            </form>
+        </div>
+        <div class="navbar-nav ms-auto">
+            <div class="nav-link-container">
+                <a class="nav-item nav-link" href="/listings/new">List Luxe</a>
+            </div>
             <% if(!currUser){ %>
                 <a class="nav-item nav-link" href="/signup"><b>Sign up</b></a>
                 <a class="nav-item nav-link" href="/login"><b>Login</b></a>

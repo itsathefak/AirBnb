@@ -10,6 +10,17 @@ body {
     flex: 1;
 }
 
+/* Login */
+.login {
+    margin-bottom: 30px;
+}
+
+/* Signup */
+.signup {
+    margin-bottom: 30px;
+
+}
+
 /* Navbar */
 
 .navbar {
@@ -53,41 +64,118 @@ body {
 }
 
 
-/* Footer */
-
-.f-info-links a {
-    text-decoration: none;
-    color: #222222;
+/* Footer Styling */
+footer {
+    background-color: #f8f9fa;
+    padding: 30px 0;
+    font-family: Arial, sans-serif;
 }
 
-.f-info-links a :hover {
-    text-decoration: underline;
-}
-
-.f-info-links,
-.f-info-socials,
-.f-info-brand {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.f-info-socials {
+    text-align: left;
+    /* Align social media icons to the left */
+    margin-bottom: 15px;
+    /* Add space below social media section */
 }
 
 .f-info-socials i {
-    font-size: 1.2rem;
-    margin-right: 1rem;
-
+    font-size: 1.5rem;
+    color: #555;
+    transition: color 0.3s ease;
+    margin-right: 10px;
+    /* Add space between icons */
 }
 
-.f-info {
-    text-align: center;
-    height: 8rem;
-    background-color: #ebebeb;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: space-evenly;
+.f-info-socials i:hover {
+    color: #fe424d;
 }
+
+/* Section Headings */
+footer h5 {
+    font-size: 1.25rem;
+    font-weight: bold;
+    margin-bottom: 15px;
+    color: #333;
+    text-align: left;
+    /* Align heading to the left */
+}
+
+/* About Us and Contact Us Section */
+footer p {
+    color: #666;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    text-align: left;
+    /* Align paragraph text to the left */
+}
+
+/* Links */
+footer a {
+    text-decoration: none;
+    color: #fe424d;
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
+
+footer a:hover {
+    color: #c6000d;
+}
+
+/* Newsletter Form */
+.newsletter-form input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+}
+
+.newsletter-form input:focus {
+    border-color: #fe424d !important;
+    /* Set the border color to #fe424d */
+    box-shadow: 0 0 0 0.25rem rgba(254, 66, 77, 0.25) !important;
+    /* Optional: Add a soft shadow to match the border color */
+    outline: none;
+}
+
+.newsletter-form button {
+    padding: 10px 15px;
+    border-radius: 5px;
+    border: none;
+    background-color: #fe424d;
+    color: white;
+    font-weight: bold;
+    width: 80%;
+    transition: background-color 0.3s ease;
+}
+
+.newsletter-form button:hover {
+    background-color: #c6000d;
+}
+
+/* Footer Bottom */
+footer .small {
+    color: #666;
+    font-size: 0.875rem;
+    margin-top: 20px;
+    text-align: left;
+    /* Align footer small text to the left */
+}
+
+
+/* Responsive Styling */
+@media (max-width: 767px) {
+    .f-info-socials i {
+        font-size: 1.2rem;
+        margin-right: 10px;
+    }
+
+    .newsletter-form input,
+    .newsletter-form button {
+        width: 100%;
+    }
+}
+
 
 /* Cards */
 
@@ -146,7 +234,21 @@ body {
     border: none !important;
 }
 
+.edit-btn,
+.delete-btn {
+    display: inline-block;
+    margin: 5px;
+}
 
+.delete-btn {
+    width: 100%;
+}
+
+.btns .btn {
+    width: 100% !important;
+    max-width: 200px;
+    margin: 5px;
+}
 
 /* Show Page */
 .show-img {
@@ -155,6 +257,7 @@ body {
 
 .btns {
     display: flex;
+    flex-wrap: wrap;
 }
 
 .show-card {

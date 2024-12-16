@@ -17,6 +17,7 @@
         .filter:hover {
             opacity: 1;
             cursor: pointer;
+            color: #fe424d;
         }
 
         .filter p {
@@ -35,6 +36,59 @@
             margin-left: 3rem;
             display: flex;
             align-items: center;
+        }
+
+        /* Custom Toggle Switch */
+        .tax-toggle .form-check-input:checked {
+            background-color: #fe424d;
+            /* Change the switch background color */
+            border-color: #fe424d;
+            /* Change the border color */
+        }
+
+        .tax-toggle .form-check-input:focus {
+            box-shadow: 0 0 0 0.25rem rgba(254, 66, 77, 0.25);
+            /* Optional: Add a soft focus glow effect */
+        }
+
+        .tax-toggle .form-check-input {
+            background-color: #ccc;
+            /* Set default color for the unchecked state */
+            border-color: #ccc;
+            /* Set default border color */
+        }
+
+
+
+        /* Mobile view styling */
+        @media screen and (max-width: 768px) {
+            #filters {
+                display: block;
+                /* Stack the filters */
+            }
+
+            .tax-toggle {
+                margin-top: 1rem;
+                /* Move the tax toggle down */
+            }
+
+            /* Hide scrollbar for Webkit browsers (Chrome, Safari) */
+            #filters::-webkit-scrollbar {
+                display: none;
+            }
+
+            /* Make filters scrollable horizontally */
+            #filters {
+                display: flex;
+                flex-wrap: nowrap;
+                overflow-x: auto;
+                padding-bottom: 1rem;
+            }
+
+            .filter {
+                margin-right: 1rem;
+                flex-shrink: 0;
+            }
         }
     </style>
 
@@ -92,6 +146,7 @@
         </div>
 
     </div>
+
     <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 mt-3">
         <% for (let listings of allListings) { %>
             <a href="/listings/<%= listings._id %>" class="listing-link">
