@@ -1,12 +1,11 @@
 mapboxgl.accessToken = mapToken;
 const map = new mapboxgl.Map({
   container: "map", // container ID
-  center: [-80.5204, 43.4643], // starting position [lng, lat]. Note that lat must be set between -90 and 90
+  center: coordinates, // Set to the coordinates from the listing
   zoom: 11, // starting zoom
 });
 
-console.log(coordinates);
-
-// const marker1 = new mapboxgl.Marker()
-//   .setLngLat(coordinates) //listing.geometry.coordinates
-//   .addTo(map);
+// Create a marker for the listing location
+const marker = new mapboxgl.Marker()
+  .setLngLat(coordinates) // Use the coordinates from the listing
+  .addTo(map);

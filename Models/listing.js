@@ -7,7 +7,7 @@ const listingSchema = new Schema({
   description: String,
   image: {
     url: String,
-    filename: String,
+    filename: String, // Optionally, you can still have this if you plan to store the filename too
   },
   price: { type: Number, required: true },
   location: { type: String, required: true },
@@ -24,7 +24,7 @@ const listingSchema = new Schema({
   },
   geometry: {
     type: {
-      type: String, // Don't do `{ location: { type: String } }`
+      type: String,
       enum: ["Point"], // 'location.type' must be 'Point'
       required: true,
     },
