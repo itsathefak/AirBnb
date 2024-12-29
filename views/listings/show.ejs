@@ -2,7 +2,8 @@
 
     <script>
         const mapToken = "<%= process.env.MAP_TOKEN %>";
-        const coordinates = JSON.parse('<%- JSON.stringify(listing.geometry.coordinates) %>');
+        const coordinates = JSON.parse('<%- JSON.stringify(listing.geometry.coordinates) %>');  // Correctly parse coordinates
+        const weatherData = JSON.parse('<%- JSON.stringify(weather || {}) %>');  // Safely parse weather data
     </script>
 
     <div class="row mt-3">
@@ -34,7 +35,7 @@
 
         <!-- Edit and Delete Buttons -->
         <% if(currUser && currUser._id.equals(listing.owner._id)) { %>
-            <div class="btns col-12 col-md-6 offset-md-3 ">
+            <div class="btns col-12 col-md-6 offset-md-3">
                 <a href="/listings/<%= listing._id %>/edit"
                     class="btn btn-dark col-12 col-md-1 offset-md-3 edit-btn">Edit</a>
                 <br>
@@ -85,7 +86,7 @@
                                     <div class="col-12 text-center">
                                         <p><b>All Reviews</b></p>
                                     </div>
-                                    <% for (review of listing.reviews) { %>
+                                    <% for (let review of listing.reviews) { %>
                                         <div class="col-12 col-md-5 mb-4">
                                             <div class="card">
                                                 <div class="card-body">
@@ -107,14 +108,68 @@
                                         <% } %>
                                 </div>
                                 <% } %>
-
                 </div>
 
                 <!-- Map Section -->
                 <div class="col-12 col-md-6 offset-md-3 mb-3">
                     <h3>Where you'll be</h3>
                     <div id="map" style="height: 400px;"></div>
+                    <hr>
+
                 </div>
+
+                <!-- Weather Section -->
+                <% if (weather) { %>
+                    <div class="col-12 col-md-6 offset-md-3 mb-3">
+                        <!-- Heading outside the card -->
+                        <h3 class="text-center mb-3">Weather Information</h3>
+
+                        <!-- Card to display weather details -->
+                        <div class="card shadow-sm">
+                            <div class="card-body">
+                                <div class="row">
+                                    <!-- City and Temperature -->
+                                    <div class="col-12 col-md-6">
+                                        <p><strong>City:</strong>
+                                            <%= weather.city %>
+                                        </p>
+                                        <p><strong>Temperature:</strong>
+                                            <%= weather.temperature %> °C
+                                        </p>
+                                        <p><strong>Min Temp:</strong>
+                                            <%= weather.minTemperature %> °C
+                                        </p>
+                                        <p><strong>Max Temp:</strong>
+                                            <%= weather.maxTemperature %> °C
+                                        </p>
+                                    </div>
+
+                                    <!-- Weather Description, Feels Like, Humidity and Icon -->
+                                    <div class="col-12 col-md-6">
+                                        <p><strong>Weather:</strong>
+                                            <%= weather.description %>
+                                        </p>
+                                        <p><strong>Feels Like:</strong>
+                                            <%= weather.feelsLike %> °C
+                                        </p>
+                                        <p><strong>Humidity:</strong>
+                                            <%= weather.humidity %> %
+                                        </p>
+
+                                        <!-- Weather Icon -->
+                                        <img src="http://openweathermap.org/img/wn/<%= weather.icon %>@2x.png"
+                                            alt="<%= weather.description %>"
+                                            style="max-width: 100px; max-height: 100px;">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <% } else { %>
+                        <p>No weather information available.</p>
+                        <% } %>
+
+
     </div>
 
     <script src="/js/map.js"></script>

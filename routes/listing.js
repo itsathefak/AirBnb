@@ -20,7 +20,7 @@ router.get("/new", isLoggedIn, listingController.renderNewForm);
 // Show route + Delete Route
 router
   .route("/:id")
-  .get(wrapAsync(listingController.showListing))
+  .get(wrapAsync(listingController.showListing)) // This will now include weather data
   .put(
     isLoggedIn,
     isOwner,
