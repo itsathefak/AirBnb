@@ -16,6 +16,7 @@ const User = require("./Models/user.js");
 const listingRouter = require("./routes/listing.js");
 const reviewRouter = require("./routes/review.js");
 const userRouter = require("./routes/user.js");
+const newsletterRouter = require("./routes/newsletter");
 
 // DB Connection
 const connectDB = async () => {
@@ -36,6 +37,10 @@ app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
 app.engine("ejs", ejsMate);
 app.use(express.static(path.join(__dirname, "/public")));
+
+app.use(express.json());
+app.use(express.static(path.join(__dirname, "public")));
+app.use("/newsletter", newsletterRouter);
 
 // Mongo Session store
 const store = MongoStore.create({
@@ -92,6 +97,7 @@ app.use((req, res, next) => {
 app.use("/listings", listingRouter);
 app.use("/listings/:id/reviews", reviewRouter);
 app.use("/", userRouter);
+app.use("/newsletter", newsletterRouter);
 
 // Page not found error
 

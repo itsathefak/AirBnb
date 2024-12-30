@@ -1,8 +1,7 @@
 <footer class="bg-light py-4">
     <div class="container">
-        <!-- Main Footer Content -->
         <div class="row">
-            <!-- Social Icons, About Us, Contact Us, and Newsletter -->
+            <!-- Social Media -->
             <div class="col-md-3 text-center mb-3">
                 <h5>Follow Us</h5>
                 <div class="f-info-socials">
@@ -12,32 +11,39 @@
                     <i class="fa-brands fa-twitter mx-2"></i>
                 </div>
             </div>
-
+            <!-- About Us -->
             <div class="col-md-3 text-center mb-3">
                 <h5>About Us</h5>
-                <p>Stay Luxe Private Limited offers luxurious and unique stays around the world, focusing on high-end
-                    accommodations and unforgettable experiences. Explore our exclusive properties today!</p>
+                <p>
+                    Stay Luxe Private Limited offers luxurious and unique stays around the world. Explore our exclusive
+                    properties today!
+                </p>
             </div>
-
+            <!-- Contact Us -->
             <div class="col-md-3 text-center mb-3">
                 <h5>Contact Us</h5>
-                <p>Email: <a href="mailto:info@stayluxe.com">info@stayluxe.com</a></p>
+                <p>Email: <a href="mailto:stayluxe247@gmail.com">stayluxe247@gmail.com</a></p>
                 <p>Phone: <a href="tel:+1234567890">+123-456-7890</a></p>
             </div>
-
+            <!-- Newsletter -->
             <div class="col-md-3 text-center mb-3">
                 <h5>Newsletter</h5>
                 <p>Subscribe to get the latest offers, news, and updates from Stay Luxe!</p>
-                <form class="newsletter-form">
-                    <input type="email" class="form-control mb-2" placeholder="Enter your email" required>
-                    <button type="submit" class="btn btn-dark w-100">Subscribe</button>
+                <form id="newsletter-form">
+                    <input type="email" id="email" name="email" class="form-control mb-2" placeholder="Enter your email"
+                        required />
+                    <button type="submit" class="btn w-100"
+                        style="background-color: #fe424d; color: white; font-weight: bold; padding: 10px 15px; border-radius: 5px; border: none;">Subscribe</button>
                 </form>
+                <p id="success-message" style="display:none; color: green;">Thank you for subscribing!</p>
+                <p id="error-message" style="display:none; color: red;">An error occurred. Please try again.</p>
             </div>
         </div>
-
-        <!-- Footer Bottom -->
         <div class="text-center mt-4">
             <p class="small text-muted">© Stay Luxe Private Limited</p>
         </div>
     </div>
 </footer>
+
+<!-- Link to the external script -->
+<script src="public/js/script.js"></script>
