@@ -10,7 +10,6 @@ const upload = multer({ storage });
 // Index route
 router.route("/").get(wrapAsync(listingController.index)).post(
   isLoggedIn,
-  // Remove the image upload and just pass the URL from the form
   wrapAsync(listingController.createListing)
 );
 

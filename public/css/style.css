@@ -256,6 +256,21 @@ footer .small {
     margin: 5px;
 }
 
+/* Booking Button */
+.btn-primary {
+    background-color: #fe424d !important;
+    border: none !important;
+    display: inline-block;
+    margin-top: 15px;
+    width: 100%;
+    max-width: 200px;
+}
+
+.btn-primary:hover {
+    background-color: #e03b41 !important;
+}
+
+
 /* Show Page */
 .show-img {
     height: 30vh;

@@ -44,6 +44,17 @@
                 </form>
             </div>
             <% } %>
+            <!-- Book Now Button -->
+<!-- Book Now Button (Always Visible) -->
+<div class="col-12 col-md-6 offset-md-3 mb-3">
+    <% if (currUser) { %>
+        <!-- If the user is logged in, they can directly book -->
+        <a href="/listings/<%= listing._id %>/book" class="btn btn-primary col-12">Book Now</a>
+    <% } else { %>
+        <!-- If the user is not logged in, redirect to the login page -->
+        <a href="/login" class="btn btn-primary col-12">Log in to Book Now</a>
+    <% } %>
+</div>
 
                 <!-- Leave a Review -->
                 <div class="col-12 col-md-6 offset-md-3 mb-3">

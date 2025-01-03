@@ -1,0 +1,221 @@
+<% layout("/layouts/boilerplate") %>
+
+<h1 class="text-center" style="font-size: 2rem; font-weight: bold; color: var(--primary-color); margin-top: 2rem;">Book Your Stay Now</h1>
+
+<div class="booking-container">
+    <img src="<%- listing.image.url %>" alt="<%- listing.title %>" class="listing-image">
+    <div class="listing-details">
+        <h1 class="listing-title"><%- listing.title %></h1>
+        <p class="listing-location"><i class="fas fa-map-marker-alt"></i> <%- listing.location %>, <%- listing.country %></p>
+        <p class="listing-price"><i class="fas fa-tag"></i> $<%- listing.price.toLocaleString() %> per night</p>
+    </div>
+    <div class="booking-form">
+        <div class="progress-bar">
+            <div class="progress" id="formProgress"></div>
+        </div>
+        <form id="bookingForm" action="/listings/<%- listing._id %>/book" method="POST">
+            <!-- Step 1: Personal Information -->
+            <div class="form-step active" id="step1">
+                <h2 class="mb-4 text-center">Personal Information</h2>
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label for="firstName" class="form-label">First Name</label>
+                        <input type="text" class="form-control" id="firstName" name="firstName" required>
+                        <div class="invalid-feedback">First name is required.</div>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="lastName" class="form-label">Last Name</label>
+                        <input type="text" class="form-control" id="lastName" name="lastName" required>
+                        <div class="invalid-feedback">Last name is required.</div>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="email" name="email" required>
+                        <div class="invalid-feedback">Please enter a valid email.</div>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="phone" class="form-label">Phone Number</label>
+                        <input type="tel" class="form-control" id="phone" name="phone" required>
+                        <div class="invalid-feedback">Phone number is required.</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 2: Booking Details -->
+            <div class="form-step" id="step2">
+                <h2 class="mb-4 text-center">Booking Details</h2>
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label for="checkIn" class="form-label">Check-in Date</label>
+                        <input type="date" class="form-control" id="checkIn" name="checkIn" required>
+                        <div class="invalid-feedback">Check-in date is required.</div>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="checkOut" class="form-label">Check-out Date</label>
+                        <input type="date" class="form-control" id="checkOut" name="checkOut" required>
+                        <div class="invalid-feedback">Check-out date is required.</div>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="guests" class="form-label">Number of Guests</label>
+                        <select class="form-select" id="guests" name="guests" required>
+                            <% for(let i = 1; i <= 10; i++) { %>
+                                <option value="<%- i %>"><%- i %> guest<%- i > 1 ? 's' : '' %></option>
+                            <% } %>
+                        </select>
+                        <div class="invalid-feedback">Please select the number of guests.</div>
+                    </div>
+                    <div class="col-12">
+                        <label for="requests" class="form-label">Special Requests</label>
+                        <textarea class="form-control" id="requests" name="requests" rows="3"></textarea>
+                    </div>
+                </div>
+            </div>
+
+                        <!-- Step 3: Payment Details -->
+                        <div class="form-step" id="step3">
+                            <h2 class="mb-4 text-center">Payment Details</h2>
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label for="cardName" class="form-label">Cardholder Name</label>
+                                    <input type="text" class="form-control" id="cardName" name="cardName" required>
+                                    <div class="invalid-feedback">Please enter the cardholder's name.</div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="cardNumber" class="form-label">Card Number</label>
+                                    <input type="text" class="form-control" id="cardNumber" name="cardNumber" required>
+                                    <div class="invalid-feedback">Please enter a valid card number.</div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="expiryDate" class="form-label">Expiry Date</label>
+                                    <input type="text" class="form-control" id="expiryDate" name="expiryDate" required>
+                                    <div class="invalid-feedback">Please enter the expiry date.</div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="cvv" class="form-label">CVV</label>
+                                    <input type="text" class="form-control" id="cvv" name="cvv" required>
+                                    <div class="invalid-feedback">Please enter the CVV.</div>
+                                </div>
+                            </div>
+                        </div>
+
+            <!-- Step 4: Booking Summary -->
+            <div class="form-step" id="step4">
+                <h2 class="mb-4 text-center">Booking Summary</h2>
+                <div class="card">
+                    <div class="card-body">
+                        <div class="summary-item">
+                            <span>Check-in Date:</span>
+                            <span id="summaryCheckIn"></span>
+                        </div>
+                        <div class="summary-item">
+                            <span>Check-out Date:</span>
+                            <span id="summaryCheckOut"></span>
+                        </div>
+                        <div class="summary-item">
+                            <span>Number of Guests:</span>
+                            <span id="summaryGuests"></span>
+                        </div>
+                        <div class="summary-item">
+                            <span>Price per Night:</span>
+                            <span>$<%- listing.price.toLocaleString() %></span>
+                        </div>
+                        <div class="summary-item">
+                            <strong>Total Price:</strong>
+                            <strong id="summaryTotalPrice"></strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-4 d-flex justify-content-between">
+                <button type="button" class="btn btn-secondary" id="prevBtn">Previous</button>
+                <button type="button" class="btn btn-primary" id="nextBtn">Next</button>
+                <button type="submit" class="btn btn-primary" id="submitBtn" style="display: none;">Confirm Booking</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const form = document.getElementById('bookingForm');
+        const nextBtn = document.getElementById('nextBtn');
+        const prevBtn = document.getElementById('prevBtn');
+        const submitBtn = document.getElementById('submitBtn');
+        const steps = document.querySelectorAll('.form-step');
+        const progress = document.getElementById('formProgress');
+        const summaryCheckIn = document.getElementById('summaryCheckIn');
+        const summaryCheckOut = document.getElementById('summaryCheckOut');
+        const summaryGuests = document.getElementById('summaryGuests');
+        const summaryTotalPrice = document.getElementById('summaryTotalPrice');
+        let currentStep = 0;
+
+        const listingPrice = parseFloat('<%- listing.price %>');
+
+        function showStep(step) {
+            steps.forEach((stepEl, index) => {
+                stepEl.classList.toggle('active', index === step);
+            });
+            progress.style.width = `${((step + 1) / steps.length) * 100}%`;
+            prevBtn.style.display = step > 0 ? 'inline-block' : 'none';
+            nextBtn.style.display = step < steps.length - 1 ? 'inline-block' : 'none';
+            submitBtn.style.display = step === steps.length - 1 ? 'inline-block' : 'none';
+
+            if (step === steps.length - 1) updateSummary(); // Update summary when reaching the last step
+        }
+
+        function validateStep(step) {
+            let isValid = true;
+            const currentStepFields = steps[step].querySelectorAll('input, select, textarea');
+
+            currentStepFields.forEach(field => {
+                if (!field.checkValidity()) {
+                    isValid = false;
+                    field.classList.add('is-invalid'); // Add a class to show validation errors
+                } else {
+                    field.classList.remove('is-invalid'); // Remove error class if valid
+                }
+            });
+
+            return isValid;
+        }
+
+        function updateSummary() {
+            const checkInDate = document.getElementById('checkIn').value;
+            const checkOutDate = document.getElementById('checkOut').value;
+            const numberOfGuests = document.getElementById('guests').value;
+
+            const checkIn = new Date(checkInDate);
+            const checkOut = new Date(checkOutDate);
+            const nights = (checkOut - checkIn) / (1000 * 60 * 60 * 24);
+
+            summaryCheckIn.textContent = checkInDate || 'Not specified';
+            summaryCheckOut.textContent = checkOutDate || 'Not specified';
+            summaryGuests.textContent = `${numberOfGuests || 0} guest${numberOfGuests > 1 ? 's' : ''}`;
+            summaryTotalPrice.textContent = `$${(nights > 0 ? nights * listingPrice : 0).toLocaleString()}`;
+        }
+
+        nextBtn.addEventListener('click', () => {
+            if (validateStep(currentStep)) {
+                if (currentStep < steps.length - 1) currentStep++;
+                showStep(currentStep);
+            }
+        });
+
+        prevBtn.addEventListener('click', () => {
+            if (currentStep > 0) currentStep--;
+            showStep(currentStep);
+        });
+
+        form.addEventListener('submit', function (event) {
+            if (!validateStep(currentStep)) {
+                event.preventDefault();
+            } else {
+                alert('Booking confirmed!');
+                form.submit();
+            }
+        });
+
+        showStep(currentStep);
+    });
+</script>

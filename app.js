@@ -17,6 +17,8 @@ const listingRouter = require("./routes/listing.js");
 const reviewRouter = require("./routes/review.js");
 const userRouter = require("./routes/user.js");
 const newsletterRouter = require("./routes/newsletter");
+const bookingRoutes = require("./routes/booking");
+
 
 // DB Connection
 const connectDB = async () => {
@@ -98,8 +100,7 @@ app.use("/listings", listingRouter);
 app.use("/listings/:id/reviews", reviewRouter);
 app.use("/", userRouter);
 app.use("/newsletter", newsletterRouter);
-
-// Page not found error
+app.use("/listings", bookingRoutes);
 
 app.all("*", (req, res, next) => {
   next(new ExpressError(404, "Page not Found"));
