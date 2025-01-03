@@ -1,8 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const wrapAsync = require("../utils/wrapAsync");
-const { isLoggedIn } = require("../middelware.js");
-const bookingController = require("../controllers/bookingController.js");
+const { isLoggedIn } = require("../middelware"); // Ensure correct file name for middleware
+const bookingController = require("../controllers/bookingController");
 
 // Booking route: show booking form
 router.get("/:id/book", isLoggedIn, wrapAsync(bookingController.showBookingForm));

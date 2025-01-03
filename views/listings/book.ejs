@@ -14,89 +14,89 @@
             <div class="progress" id="formProgress"></div>
         </div>
         <form id="bookingForm" action="/listings/<%- listing._id %>/book" method="POST">
-            <!-- Step 1: Personal Information -->
-            <div class="form-step active" id="step1">
-                <h2 class="mb-4 text-center">Personal Information</h2>
-                <div class="row g-3">
-                    <div class="col-md-6">
-                        <label for="firstName" class="form-label">First Name</label>
-                        <input type="text" class="form-control" id="firstName" name="firstName" required>
-                        <div class="invalid-feedback">First name is required.</div>
-                    </div>
-                    <div class="col-md-6">
-                        <label for="lastName" class="form-label">Last Name</label>
-                        <input type="text" class="form-control" id="lastName" name="lastName" required>
-                        <div class="invalid-feedback">Last name is required.</div>
-                    </div>
-                    <div class="col-md-6">
-                        <label for="email" class="form-label">Email</label>
-                        <input type="email" class="form-control" id="email" name="email" required>
-                        <div class="invalid-feedback">Please enter a valid email.</div>
-                    </div>
-                    <div class="col-md-6">
-                        <label for="phone" class="form-label">Phone Number</label>
-                        <input type="tel" class="form-control" id="phone" name="phone" required>
-                        <div class="invalid-feedback">Phone number is required.</div>
-                    </div>
-                </div>
+          <!-- Step 1: Personal Information -->
+    <div class="form-step active" id="step1">
+        <h2 class="mb-4 text-center">Personal Information</h2>
+        <div class="row g-3">
+            <div class="col-md-6">
+                <label for="firstName" class="form-label">First Name</label>
+                <input type="text" class="form-control" id="firstName" name="firstName" required>
+                <div class="invalid-feedback">First name is required.</div>
             </div>
-
-            <!-- Step 2: Booking Details -->
-            <div class="form-step" id="step2">
-                <h2 class="mb-4 text-center">Booking Details</h2>
-                <div class="row g-3">
-                    <div class="col-md-6">
-                        <label for="checkIn" class="form-label">Check-in Date</label>
-                        <input type="date" class="form-control" id="checkIn" name="checkIn" required>
-                        <div class="invalid-feedback">Check-in date is required.</div>
-                    </div>
-                    <div class="col-md-6">
-                        <label for="checkOut" class="form-label">Check-out Date</label>
-                        <input type="date" class="form-control" id="checkOut" name="checkOut" required>
-                        <div class="invalid-feedback">Check-out date is required.</div>
-                    </div>
-                    <div class="col-md-6">
-                        <label for="guests" class="form-label">Number of Guests</label>
-                        <select class="form-select" id="guests" name="guests" required>
-                            <% for(let i = 1; i <= 10; i++) { %>
-                                <option value="<%- i %>"><%- i %> guest<%- i > 1 ? 's' : '' %></option>
-                            <% } %>
-                        </select>
-                        <div class="invalid-feedback">Please select the number of guests.</div>
-                    </div>
-                    <div class="col-12">
-                        <label for="requests" class="form-label">Special Requests</label>
-                        <textarea class="form-control" id="requests" name="requests" rows="3"></textarea>
-                    </div>
-                </div>
+            <div class="col-md-6">
+                <label for="lastName" class="form-label">Last Name</label>
+                <input type="text" class="form-control" id="lastName" name="lastName" required>
+                <div class="invalid-feedback">Last name is required.</div>
             </div>
+            <div class="col-md-6">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" class="form-control" id="email" name="email" required pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$">
+                <div class="invalid-feedback">Please enter a valid email.</div>
+            </div>
+            <div class="col-md-6">
+                <label for="phone" class="form-label">Phone Number</label>
+                <input type="tel" class="form-control" id="phone" name="phone" required pattern="^\d+$">
+                <div class="invalid-feedback">Phone number must be a valid number.</div>
+            </div>
+        </div>
+    </div>
 
-                        <!-- Step 3: Payment Details -->
-                        <div class="form-step" id="step3">
-                            <h2 class="mb-4 text-center">Payment Details</h2>
-                            <div class="row g-3">
-                                <div class="col-md-6">
-                                    <label for="cardName" class="form-label">Cardholder Name</label>
-                                    <input type="text" class="form-control" id="cardName" name="cardName" required>
-                                    <div class="invalid-feedback">Please enter the cardholder's name.</div>
-                                </div>
-                                <div class="col-md-6">
-                                    <label for="cardNumber" class="form-label">Card Number</label>
-                                    <input type="text" class="form-control" id="cardNumber" name="cardNumber" required>
-                                    <div class="invalid-feedback">Please enter a valid card number.</div>
-                                </div>
-                                <div class="col-md-6">
-                                    <label for="expiryDate" class="form-label">Expiry Date</label>
-                                    <input type="text" class="form-control" id="expiryDate" name="expiryDate" required>
-                                    <div class="invalid-feedback">Please enter the expiry date.</div>
-                                </div>
-                                <div class="col-md-6">
-                                    <label for="cvv" class="form-label">CVV</label>
-                                    <input type="text" class="form-control" id="cvv" name="cvv" required>
-                                    <div class="invalid-feedback">Please enter the CVV.</div>
-                                </div>
-                            </div>
-                        </div>
+    <!-- Step 2: Booking Details -->
+    <div class="form-step" id="step2">
+        <h2 class="mb-4 text-center">Booking Details</h2>
+        <div class="row g-3">
+            <div class="col-md-6">
+                <label for="checkIn" class="form-label">Check-in Date</label>
+                <input type="date" class="form-control" id="checkIn" name="checkIn" required>
+                <div class="invalid-feedback">Check-in date is required.</div>
+            </div>
+            <div class="col-md-6">
+                <label for="checkOut" class="form-label">Check-out Date</label>
+                <input type="date" class="form-control" id="checkOut" name="checkOut" required>
+                <div class="invalid-feedback">Check-out date is required.</div>
+            </div>
+            <div class="col-md-6">
+                <label for="guests" class="form-label">Number of Guests</label>
+                <select class="form-select" id="guests" name="guests" required>
+                    <% for(let i = 1; i <= 10; i++) { %>
+                        <option value="<%- i %>"><%- i %> guest<%- i > 1 ? 's' : '' %></option>
+                    <% } %>
+                </select>
+                <div class="invalid-feedback">Please select the number of guests.</div>
+            </div>
+            <div class="col-12">
+                <label for="requests" class="form-label">Special Requests</label>
+                <textarea class="form-control" id="requests" name="requests" rows="3"></textarea>
+            </div>
+        </div>
+    </div>
+
+    <!-- Step 3: Payment Details -->
+    <div class="form-step" id="step3">
+        <h2 class="mb-4 text-center">Payment Details</h2>
+        <div class="row g-3">
+            <div class="col-md-6">
+                <label for="cardName" class="form-label">Cardholder Name</label>
+                <input type="text" class="form-control" id="cardName" name="cardName" required>
+                <div class="invalid-feedback">Please enter the cardholder's name.</div>
+            </div>
+            <div class="col-md-6">
+                <label for="cardNumber" class="form-label">Card Number</label>
+                <input type="text" class="form-control" id="cardNumber" name="cardNumber" required pattern="^\d{16}$">
+                <div class="invalid-feedback">Card number must be exactly 16 digits.</div>
+            </div>
+            <div class="col-md-6">
+                <label for="expiryDate" class="form-label">Expiry Date (MM/YY)</label>
+                <input type="text" class="form-control" id="expiryDate" name="expiryDate" required pattern="^(0[1-9]|1[0-2])\/(2[0-9])$">
+                <div class="invalid-feedback">Expiry date must be in MM/YY format.</div>
+            </div>
+            <div class="col-md-6">
+                <label for="cvv" class="form-label">CVV</label>
+                <input type="text" class="form-control" id="cvv" name="cvv" maxlength="3" required pattern="^\d{3}$" title="CVV must be 3 digits." oninput="this.value = this.value.slice(0, 3)">
+                <div class="invalid-feedback">CVV must be exactly 3 digits.</div>
+            </div>
+        </div>
+    </div>
 
             <!-- Step 4: Booking Summary -->
             <div class="form-step" id="step4">
@@ -123,6 +123,16 @@
                             <strong>Total Price:</strong>
                             <strong id="summaryTotalPrice"></strong>
                         </div>
+                        <!-- Terms and Conditions Section -->
+                        <div class="terms-and-conditions mt-3">
+                            <!-- Checkbox to agree to terms -->
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="agreeTerms" required>
+                                <label class="form-check-label" for="agreeTerms">
+                                    I agree to the <a href="#" data-bs-toggle="modal" data-bs-target="#termsModal">Terms and Conditions</a>.
+                                </label>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -133,6 +143,30 @@
                 <button type="submit" class="btn btn-primary" id="submitBtn" style="display: none;">Confirm Booking</button>
             </div>
         </form>
+    </div>
+</div>
+
+<!-- Terms and Conditions Modal -->
+<div class="modal fade" id="termsModal" tabindex="-1" aria-labelledby="termsModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="termsModalLabel">Terms and Conditions</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <ul>
+                    <li>1. Reservations are subject to availability and confirmation by StayLuxe.</li>
+                    <li>2. Check-in time is 3:00 PM and check-out time is 11:00 AM.</li>
+                    <li>3. A valid credit card is required to guarantee the reservation.</li>
+                    <li>4. Cancellations must be made at least 48 hours prior to arrival to avoid charges.</li>
+                    <li>5. Pets are not allowed unless specified in the listing.</li>
+                </ul>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -161,7 +195,7 @@
             nextBtn.style.display = step < steps.length - 1 ? 'inline-block' : 'none';
             submitBtn.style.display = step === steps.length - 1 ? 'inline-block' : 'none';
 
-            if (step === steps.length - 1) updateSummary(); // Update summary when reaching the last step
+            if (step === steps.length - 1) updateSummary(); 
         }
 
         function validateStep(step) {
@@ -171,9 +205,9 @@
             currentStepFields.forEach(field => {
                 if (!field.checkValidity()) {
                     isValid = false;
-                    field.classList.add('is-invalid'); // Add a class to show validation errors
+                    field.classList.add('is-invalid'); 
                 } else {
-                    field.classList.remove('is-invalid'); // Remove error class if valid
+                    field.classList.remove('is-invalid'); 
                 }
             });
 
@@ -181,41 +215,29 @@
         }
 
         function updateSummary() {
-            const checkInDate = document.getElementById('checkIn').value;
-            const checkOutDate = document.getElementById('checkOut').value;
-            const numberOfGuests = document.getElementById('guests').value;
+            const checkInDate = new Date(document.getElementById('checkIn').value);
+            const checkOutDate = new Date(document.getElementById('checkOut').value);
+            const guests = document.getElementById('guests').value;
 
-            const checkIn = new Date(checkInDate);
-            const checkOut = new Date(checkOutDate);
-            const nights = (checkOut - checkIn) / (1000 * 60 * 60 * 24);
+            const days = Math.round((checkOutDate - checkInDate) / (1000 * 60 * 60 * 24));
+            const totalPrice = days * listingPrice;
 
-            summaryCheckIn.textContent = checkInDate || 'Not specified';
-            summaryCheckOut.textContent = checkOutDate || 'Not specified';
-            summaryGuests.textContent = `${numberOfGuests || 0} guest${numberOfGuests > 1 ? 's' : ''}`;
-            summaryTotalPrice.textContent = `$${(nights > 0 ? nights * listingPrice : 0).toLocaleString()}`;
+            summaryCheckIn.textContent = checkInDate.toLocaleDateString();
+            summaryCheckOut.textContent = checkOutDate.toLocaleDateString();
+            summaryGuests.textContent = `${guests} guest${guests > 1 ? 's' : ''}`;
+            summaryTotalPrice.textContent = `$${totalPrice.toLocaleString()}`;
         }
 
         nextBtn.addEventListener('click', () => {
-            if (validateStep(currentStep)) {
-                if (currentStep < steps.length - 1) currentStep++;
-                showStep(currentStep);
-            }
+            if (validateStep(currentStep)) showStep(++currentStep); 
         });
 
-        prevBtn.addEventListener('click', () => {
-            if (currentStep > 0) currentStep--;
-            showStep(currentStep);
+        prevBtn.addEventListener('click', () => showStep(--currentStep));
+
+        form.addEventListener('submit', event => {
+            if (!validateStep(currentStep)) event.preventDefault(); 
         });
 
-        form.addEventListener('submit', function (event) {
-            if (!validateStep(currentStep)) {
-                event.preventDefault();
-            } else {
-                alert('Booking confirmed!');
-                form.submit();
-            }
-        });
-
-        showStep(currentStep);
+        showStep(currentStep); 
     });
 </script>

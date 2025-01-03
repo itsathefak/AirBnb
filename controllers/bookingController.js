@@ -1,5 +1,5 @@
-const Booking = require('../models/booking');
-const Listing = require('../Models/listing'); // Fixed case sensitivity
+const Booking = require('../Models/booking');
+const Listing = require('../Models/listing');
 
 // Show booking form for a specific listing
 exports.showBookingForm = async (req, res) => {
@@ -21,58 +21,46 @@ exports.showBookingForm = async (req, res) => {
 
 // Create a booking
 exports.createBooking = async (req, res) => {
-  try {
-      // Log the incoming request body to check what data is being sent
-      console.log(req.body);
+    try {
+        const {
+            firstName, lastName, email, phone, checkIn, checkOut, guests, requests,
+            cardName, cardNumber, expiryDate, cvv, listingId
+        } = req.body;
 
-      const {
-          firstName, lastName, email, phone, checkIn, checkOut, guests, requests, 
-          cardName, cardNumber, expiryDate, cvv, listingId
-      } = req.body;
 
-      // Check if all required fields are provided
-      if (!firstName || !lastName || !email || !phone || !checkIn || !checkOut || 
-          !guests || !cardName || !cardNumber || !expiryDate || !cvv || !listingId) {
-          return res.status(400).json({ message: 'All fields are required' });
-      }
+        // Create a new booking
+        const booking = new Booking({
+            firstName,
+            lastName,
+            email,
+            phone,
+            checkIn,
+            checkOut,
+            guests,
+            requests,
+            cardName,
+            cardNumber,
+            expiryDate,
+            cvv,
+            listing: listingId
+        });
 
-      // Find the listing by ID
-      const listing = await Listing.findById(listingId);
-      if (!listing) {
-          return res.status(404).json({ message: 'Listing not found' });
-      }
+        // Save the booking to the database
+        await booking.save();
 
-      // Calculate the total price based on the number of nights
-      const checkInDate = new Date(checkIn);
-      const checkOutDate = new Date(checkOut);
-      const nights = Math.ceil((checkOutDate - checkInDate) / (1000 * 3600 * 24)); // Number of nights
-      const totalPrice = listing.price * nights;
+        // Find the listing and update it with booking information (e.g., available dates)
+        const listing = await Listing.findById(listingId);
+        if (listing) {
+            // Update the listing with any necessary booking info
+            // For example, you can reduce availability or set a "booked" flag
+            listing.bookings.push(booking._id);
+            await listing.save();
+        }
 
-      // Create a new booking document
-      const newBooking = new Booking({
-          listingId,
-          firstName,
-          lastName,
-          email,
-          phone,
-          checkIn: checkInDate,
-          checkOut: checkOutDate,
-          guests,
-          cardName,
-          cardNumber,
-          expiryDate,
-          cvv,
-          requests,
-          totalPrice
-      });
-
-      // Save the new booking to the database
-      await newBooking.save();
-
-      // Redirect to the listings page after successful booking
-      res.redirect('/listings');
-  } catch (error) {
-      console.error(error);
-      res.status(500).json({ message: 'An error occurred while creating the booking' });
-  }
+        // Redirect to the listings page after successful booking
+        res.redirect('/listings'); // Change this to your listings page URL
+    } catch (error) {
+        console.error('Error creating booking:', error);
+        res.status(500).json({ message: 'An error occurred while creating the booking' });
+    }
 };
