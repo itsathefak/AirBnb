@@ -56,6 +56,7 @@ exports.createBooking = async (req, res) => {
             listing.bookings.push(booking._id);
             await listing.save();
         }
+        req.flash("success", "Your Booking has been Confirmed ");
 
         // Redirect to the listings page after successful booking
         res.redirect('/listings'); // Change this to your listings page URL
@@ -64,3 +65,4 @@ exports.createBooking = async (req, res) => {
         res.status(500).json({ message: 'An error occurred while creating the booking' });
     }
 };
+

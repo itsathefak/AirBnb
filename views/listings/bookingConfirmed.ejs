@@ -1,0 +1,128 @@
+<% layout("/layouts/boilerplate") %>
+
+<div class="booking-confirmed-container">
+    <div class="confirmation-card">
+        <div class="confirmation-header">
+            <i class="fas fa-check-circle"></i>
+            <h1>Booking Confirmed!</h1>
+        </div>
+        <div class="listing-details">
+            <img src="<%= listing.image.url %>" alt="<%= listing.title %>" class="listing-image">
+            <h2><%= listing.title %></h2>
+            <p><i class="fas fa-map-marker-alt"></i> <%= listing.location %>, <%= listing.country %></p>
+        </div>
+        <div class="booking-details">
+            <h3>Booking Details</h3>
+            <div class="detail-item">
+                <span>Check-in:</span>
+                <span><%= booking.checkIn.toLocaleDateString() %></span>
+            </div>
+            <div class="detail-item">
+                <span>Check-out:</span>
+                <span><%= booking.checkOut.toLocaleDateString() %></span>
+            </div>
+            <div class="detail-item">
+                <span>Guests:</span>
+                <span><%= booking.guests %></span>
+            </div>
+            <div class="detail-item">
+                <span>Total Price:</span>
+                <span>$<%= booking.totalPrice.toLocaleString() %></span>
+            </div>
+        </div>
+        <div class="confirmation-footer">
+            <p>Thank you for choosing StayLuxe! We hope you enjoy your stay.</p>
+            <a href="/" class="btn btn-primary">Back to Home</a>
+        </div>
+    </div>
+</div>
+
+<style>
+    .booking-confirmed-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        background-color: #f8f9fa;
+        padding: 2rem;
+    }
+
+    .confirmation-card {
+        background-color: #ffffff;
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        max-width: 600px;
+        width: 100%;
+    }
+
+    .confirmation-header {
+        background-color: #28a745;
+        color: #ffffff;
+        text-align: center;
+        padding: 2rem;
+    }
+
+    .confirmation-header i {
+        font-size: 4rem;
+        margin-bottom: 1rem;
+    }
+
+    .confirmation-header h1 {
+        font-size: 2.5rem;
+        margin: 0;
+    }
+
+    .listing-details {
+        padding: 2rem;
+        text-align: center;
+    }
+
+    .listing-image {
+        width: 100%;
+        max-height: 300px;
+        object-fit: cover;
+        border-radius: 10px;
+        margin-bottom: 1rem;
+    }
+
+    .listing-details h2 {
+        font-size: 1.8rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .booking-details {
+        background-color: #f8f9fa;
+        padding: 2rem;
+    }
+
+    .booking-details h3 {
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+    }
+
+    .detail-item {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 0.5rem;
+    }
+
+    .confirmation-footer {
+        text-align: center;
+        padding: 2rem;
+    }
+
+    .confirmation-footer p {
+        margin-bottom: 1rem;
+    }
+
+    .btn-primary {
+        background-color: #fe424d;
+        border-color: #fe424d;
+    }
+
+    .btn-primary:hover {
+        background-color: #e63946;
+        border-color: #e63946;
+    }
+</style>
