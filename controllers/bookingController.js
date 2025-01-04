@@ -1,5 +1,6 @@
 const Booking = require('../Models/booking');
 const Listing = require('../Models/listing');
+const { sendBookingConfirmationEmail } = require("../utils/bookingMailer"); // Import the email function
 
 // Show booking form for a specific listing
 exports.showBookingForm = async (req, res) => {
@@ -26,7 +27,6 @@ exports.createBooking = async (req, res) => {
             firstName, lastName, email, phone, checkIn, checkOut, guests, requests,
             cardName, cardNumber, expiryDate, cvv, listingId
         } = req.body;
-
 
         // Create a new booking
         const booking = new Booking({
@@ -56,6 +56,11 @@ exports.createBooking = async (req, res) => {
             listing.bookings.push(booking._id);
             await listing.save();
         }
+
+        // Send booking confirmation email
+        await sendBookingConfirmationEmail(email, booking); // Send the email here
+
+        // Flash success message
         req.flash("success", "Your Booking has been Confirmed ");
 
         // Redirect to the listings page after successful booking
@@ -66,3 +71,19 @@ exports.createBooking = async (req, res) => {
     }
 };
 
+// Show booking confirmation page (optional)
+exports.showConfirmationPage = async (req, res) => {
+    try {
+        const { id } = req.params; // Booking ID
+        const booking = await Booking.findById(id).populate("listing"); // Fetch booking with listing data
+        if (!booking) {
+            return res.status(404).send("Booking not found");
+        }
+
+        // Render the confirmation page with booking data
+        res.render("listings/bookingconfirmed", { booking });
+    } catch (error) {
+        console.error("Error displaying confirmation page:", error);
+        res.status(500).send("An error occurred while displaying the confirmation page");
+    }
+};
