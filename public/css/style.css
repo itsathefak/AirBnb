@@ -63,6 +63,57 @@ body {
     padding: 8px 20px;
 }
 
+/* Search Bar */
+
+/* For mobile view, hide the search bar in the navbar */
+@media (max-width: 767px) {
+    .navbar-nav .search-input,
+    .navbar-nav .search-btn {
+        display: none;
+    }
+
+    /* Make the search bar appear in the main content (index.ejs) */
+    .mobile-search-bar {
+        display: block;
+        margin-top: 1rem;
+        width: 100%;
+    }
+
+    .search-btn {
+        padding: 0.5rem 1rem;
+        font-size: 1rem;
+    }
+
+    .search-input {
+        padding: 0.5rem 2rem;
+        font-size: 1rem;
+        width: 100%;
+    }
+}
+
+/* Hide the search bar in navbar for tablet and mobile views */
+@media (max-width: 1024px) {
+    .navbar-nav .navbar-nav-form {
+        display: none;
+    }
+}
+
+/* Show the search bar in mobile view (only in index.ejs) */
+@media (max-width: 1024px) {
+    .mobile-search-bar {
+        display: block;
+        width: 100%;
+    }
+}
+
+/* Hide search bar in index.ejs for desktop/tablet */
+@media (min-width: 1025px) {
+    .mobile-search-bar {
+        display: none;
+    }
+}
+
+
 
 /* Footer Styling */
 footer {

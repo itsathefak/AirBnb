@@ -167,3 +167,18 @@ module.exports.destroyListing = async (req, res) => {
     res.redirect("/listings");
   }
 };
+
+module.exports.searchListings = async (req, res) => {
+  const { query } = req.query;
+  let allListings = [];
+  if (query) {
+      const regex = new RegExp(escapeRegex(query), 'i'); // Case-insensitive regex search
+      allListings = await Listing.find({ title: regex });
+  }
+  res.render("listings/index", { allListings });
+};
+
+// Helper function to escape special characters in regex
+function escapeRegex(text) {
+  return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+}

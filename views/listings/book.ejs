@@ -13,7 +13,8 @@
         <div class="progress-bar">
             <div class="progress" id="formProgress"></div>
         </div>
-        <form id="bookingForm" action="/listings/<%- listing._id %>/book" method="POST">
+        <form id="bookingForm" action="/listings/<%= listing._id %>/book" method="POST">
+
             <!-- Step 1: Personal Information -->
     <div class="form-step active" id="step1">
         <h2 class="mb-4 text-center">Personal Information</h2>

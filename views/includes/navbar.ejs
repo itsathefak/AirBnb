@@ -104,11 +104,10 @@
             <a class="nav-item nav-link" href="/listings">Explore</a>
         </div>
         <div class="navbar-nav ms-auto">
-            <form class="d-flex" role="search">
-                <input class="form-control me-2 search-input" type="search" placeholder="Search Destination"
-                    aria-label="Search">
-                <button class="btn search-btn my-2 my-sm-0" type="submit"><i
-                        class="fa-solid fa-magnifying-glass"></i>Search</button>
+            <!-- Hide the search form for mobile/tablet views -->
+            <form class="d-flex navbar-nav-form" action="/listings/search" method="GET">
+                <input class="form-control me-2 search-input" type="text" name="query" placeholder="Search Destination" aria-label="Search">
+                <button class="btn search-btn my-2 my-sm-0" type="submit"><i class="fa-solid fa-magnifying-glass"></i>Search</button>
             </form>
         </div>
         <div class="navbar-nav ms-auto">

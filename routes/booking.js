@@ -10,8 +10,7 @@ router.get("/:id/book", isLoggedIn, wrapAsync(bookingController.showBookingForm)
 // Booking route: handle booking form submission
 router.post("/:id/book", isLoggedIn, wrapAsync(bookingController.createBooking));
 
-// // Booking confirmation page
-// router.get("/:id/confirmation", isLoggedIn, wrapAsync(bookingController.showConfirmationPage));
-
+// Booking confirmation page
+router.get("/:id/confirmation", isLoggedIn, wrapAsync(bookingController.showConfirmationPage));
 
 module.exports = router;
