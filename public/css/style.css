@@ -33,6 +33,18 @@ body {
     font-size: 2rem;
 }
 
+/* Styling for the logo inside the navbar */
+.logo {
+    height: 35px; /* Adjust the height to your preference */
+    width: auto;  /* Maintain aspect ratio */
+    transition: transform 0.3s ease; /* Optional: Smooth transition for hover effect */
+}
+
+.navbar-brand:hover .logo {
+    transform: scale(1.1); /* Optional: Enlarge logo slightly on hover */
+}
+
+
 .nav-link {
     color: #222222 !important;
     /* important is for overridding bootstrap */
@@ -387,6 +399,8 @@ footer .small {
     font-size: 0.8rem;
 }
 
+/* Tax Toggle */
+
 .tax-info {
     display: none;
 }
@@ -420,7 +434,6 @@ footer .small {
     border-color: #ccc;
     /* Set default border color */
 }
-
 
 
 /* Mobile view styling */
