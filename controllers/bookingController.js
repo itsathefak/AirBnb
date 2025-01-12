@@ -20,56 +20,69 @@ exports.showBookingForm = async (req, res) => {
     }
 };
 
+
+
 // Create a booking
 exports.createBooking = async (req, res) => {
-    try {
-        const {
-            firstName, lastName, email, phone, checkIn, checkOut, guests, requests,
-            cardName, cardNumber, expiryDate, cvv, listingId
-        } = req.body;
+  try {
+    const {
+      firstName, lastName, email, phone, checkIn, checkOut, guests, requests,
+      cardName, cardNumber, expiryDate, cvv, listingId
+    } = req.body;
 
-        // Create a new booking
-        const booking = new Booking({
-            firstName,
-            lastName,
-            email,
-            phone,
-            checkIn,
-            checkOut,
-            guests,
-            requests,
-            cardName,
-            cardNumber,
-            expiryDate,
-            cvv,
-            listing: listingId
-        });
-
-        // Save the booking to the database
-        await booking.save();
-
-        // Find the listing and update it with booking information (e.g., available dates)
-        const listing = await Listing.findById(listingId);
-        if (listing) {
-            // Update the listing with any necessary booking info
-            // For example, you can reduce availability or set a "booked" flag
-            listing.bookings.push(booking._id);
-            await listing.save();
-        }
-
-        // Send booking confirmation email
-        await sendBookingConfirmationEmail(email, booking); // Send the email here
-
-        // Flash success message
-        req.flash("success", "Your Booking has been Confirmed ");
-
-        // Redirect to the listings page after successful booking
-        res.redirect('/listings'); // Change this to your listings page URL
-    } catch (error) {
-        console.error('Error creating booking:', error);
-        res.status(500).json({ message: 'An error occurred while creating the booking' });
+    // Find the listing by ID to get the title, location, and price
+    const listing = await Listing.findById(listingId);
+    if (!listing) {
+      console.error(`Listing not found with ID: ${listingId}`);
+      return res.status(404).json({ message: 'Listing not found' });
     }
+
+    // Create a new booking
+    const booking = new Booking({
+      firstName,
+      lastName,
+      email,
+      phone,
+      checkIn,
+      checkOut,
+      guests,
+      requests,
+      cardName,
+      cardNumber,
+      expiryDate,
+      cvv,
+      listing: listingId
+    });
+
+    // Save the booking to the database
+    await booking.save();
+
+    // Update the listing with booking info
+    listing.bookings.push(booking._id);
+    await listing.save();
+
+    // Prepare booking details for email
+    const bookingDetails = {
+        image: listing.image.url,
+      title: listing.title,
+      location: listing.location,
+      checkIn,
+      checkOut,
+      totalPrice: listing.price
+    };
+
+    // Send booking confirmation email
+    await sendBookingConfirmationEmail(email, bookingDetails);
+
+    // Flash success message and redirect
+    req.flash("success", "Your Booking has been Confirmed");
+    res.redirect('/listings'); 
+  } catch (error) {
+    console.error('Error creating booking:', error);
+    res.status(500).json({ message: 'An error occurred while creating the booking', error });
+  }
 };
+
 
 // Show booking confirmation page (optional)
 exports.showConfirmationPage = async (req, res) => {
