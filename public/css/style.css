@@ -20,7 +20,15 @@ body {
     margin-bottom: 30px;
 
 }
+.signup-link {
+    color: #fe424d; /* Theme color for the link */
+    text-decoration: none; /* Remove underline */
+}
 
+.signup-link:hover, .signup-link:focus {
+    color: #c6000d; /* Darker color on hover */
+    text-decoration: none; /* Ensure no underline on hover */
+}
 /* Navbar */
 
 .navbar {
