@@ -206,17 +206,17 @@
             }
         });
 
-        // Animate reviews on scroll
-        gsap.utils.toArray('.card').forEach((card, index) => {
-            gsap.from(card, {
-                opacity: 0,
-                x: index % 2 === 0 ? -50 : 50,
-                duration: 0.8,
-                scrollTrigger: {
-                    trigger: card,
-                    start: 'top 80%',
-                }
-            });
-        });
+// Animate reviews on scroll
+gsap.utils.toArray('.card').forEach((card) => {
+    gsap.from(card, {
+        opacity: 0,
+        y: 20,  // Fade in from bottom instead of from the side
+        duration: 0.8,
+        scrollTrigger: {
+            trigger: card,
+            start: 'top 80%',
+        }
+    });
+});
     });
 </script>
