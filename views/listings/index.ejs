@@ -1,13 +1,16 @@
 <% layout("/layouts/boilerplate") %>
 
-<!-- This is where the search bar will appear in mobile view (index.ejs only) -->
-<div class="mobile-search-bar d-block d-md-none">
+
+<!-- Mobile search bar -->
+<div class="mobile-search-bar d-block d-md-none animate__animated animate__fadeInDown">
     <form class="d-flex" action="/listings/search" method="GET">
         <input class="form-control me-2 search-input" type="text" name="query" placeholder="Search Destination" aria-label="Search">
         <button class="btn search-btn my-2 my-sm-0" type="submit"><i class="fa-solid fa-magnifying-glass"></i>Search</button>
     </form>
 </div>
-<div id="filters">
+
+<!-- Filters section -->
+<div id="filters" class="animate__animated animate__fadeIn">
     <div class="filter">
         <div> <i class="fa-solid fa-fire"></i></div>
         <p> Trending</p>
@@ -53,7 +56,7 @@
         <p> Boats</p>
     </div>
 
-    <div class="tax-toggle">
+    <div class="tax-toggle animate__animated animate__fadeInRight">
         <div class="form-check form-switch">
             <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
             <label class="form-check-label" for="flexSwitchCheckDefault">Display Taxes</label>
@@ -61,6 +64,7 @@
     </div>
 </div>
 
+<!-- Listings section -->
 <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 mt-3">
     <% if (allListings.length > 0) { %>
         <% for (let listings of allListings) { %>
@@ -82,20 +86,99 @@
             </a>
         <% } %>
     <% } else { %>
-        <p>No listings found for your search.</p>
+        <p class="animate__animated animate__fadeIn">No listings found for your search.</p>
     <% } %>
 </div>
 
 <script>
-    let taxSwitch = document.getElementById("flexSwitchCheckDefault")
+    // Tax toggle functionality
+    let taxSwitch = document.getElementById("flexSwitchCheckDefault");
     taxSwitch.addEventListener("click", () => {
-        let taxInfo = document.getElementsByClassName("tax-info")
-        for (info of taxInfo) {
+        let taxInfo = document.getElementsByClassName("tax-info");
+        for (let info of taxInfo) {
             if (info.style.display != "inline") {
                 info.style.display = "inline";
             } else {
                 info.style.display = "none";
             }
         }
-    })
+    });
+
+    // New animation scripts
+    document.addEventListener('DOMContentLoaded', (event) => {
+        // Animate filters on load
+        const filters = document.querySelectorAll('.filter');
+        filters.forEach((filter, index) => {
+            gsap.from(filter, {
+                duration: 0.5,
+                opacity: 0,
+                y: 20,
+                delay: index * 0.1,
+                ease: "power2.out"
+            });
+        });
+
+        // Add floating animation to random filters
+        setInterval(() => {
+            const randomFilter = filters[Math.floor(Math.random() * filters.length)];
+            randomFilter.classList.add('animate-float');
+            setTimeout(() => {
+                randomFilter.classList.remove('animate-float');
+            }, 3000);
+        }, 2000);
+
+        // Animate listing cards on scroll
+        const listingCards = document.querySelectorAll('.listing-card');
+        const animateOnScroll = () => {
+            listingCards.forEach(card => {
+                const cardTop = card.getBoundingClientRect().top;
+                const cardBottom = card.getBoundingClientRect().bottom;
+                if (cardTop < window.innerHeight && cardBottom > 0) {
+                    gsap.to(card, {
+                        duration: 0.3,
+                        opacity: 1,
+                        y: 0,
+                        ease: "power2.out"
+                    });
+                }
+            });
+        };
+
+        window.addEventListener('scroll', animateOnScroll);
+        animateOnScroll(); // Initial check
+
+        // Animate search button on hover
+        const searchBtn = document.querySelector('.search-btn');
+        searchBtn.addEventListener('mouseenter', () => {
+            gsap.to(searchBtn, {
+                duration: 0.3,
+                x: 5,
+                ease: "power2.out"
+            });
+        });
+        searchBtn.addEventListener('mouseleave', () => {
+            gsap.to(searchBtn, {
+                duration: 0.3,
+                x: 0,
+                ease: "power2.out"
+            });
+        });
+
+        // Animate mobile search bar on focus
+        const mobileSearchBar = document.querySelector('.mobile-search-bar');
+        mobileSearchBar.addEventListener('focusin', () => {
+            gsap.to(mobileSearchBar, {
+                duration: 0.3,
+                scale: 1.05,
+                ease: "power2.out"
+            });
+        });
+        mobileSearchBar.addEventListener('focusout', () => {
+            gsap.to(mobileSearchBar, {
+                duration: 0.3,
+                scale: 1,
+                ease: "power2.out"
+            });
+        });
+    });
 </script>

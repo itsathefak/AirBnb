@@ -1,186 +1,222 @@
 <% layout("/layouts/boilerplate") %>
 
-    <script>
-        const mapToken = "<%= process.env.MAP_TOKEN %>";
-        const coordinates = JSON.parse('<%- JSON.stringify(listing.geometry.coordinates) %>');  // Correctly parse coordinates
-        const weatherData = JSON.parse('<%- JSON.stringify(weather || {}) %>');  // Safely parse weather data
-    </script>
+<!-- Add these links to the head of your document or in the boilerplate layout -->
 
-    <div class="row mt-3">
-        <!-- Listing Title -->
-        <div class="col-12 col-md-8 offset-md-3">
-            <h3>
-                <%= listing.title %>
-            </h3>
+
+<script>
+    const mapToken = "<%= process.env.MAP_TOKEN %>";
+    const coordinates = JSON.parse('<%- JSON.stringify(listing.geometry.coordinates) %>');
+    const weatherData = JSON.parse('<%- JSON.stringify(weather || {}) %>');
+</script>
+
+<div class="row custom-gutter mt-3 mb-3">
+    <!-- Listing Title -->
+    <div class="col-12 col-md-8 offset-md-3 animate__animated animate__fadeInDown">
+        <h3><%= listing.title %></h3>
+    </div>
+
+    <!-- Listing Card -->
+    <div class="card col-12 col-md-6 offset-md-3 show-card listing-card1">
+        <div class="image-container">
+        <img src="<%= listing.image.url %>" class="card-img-top show-img" alt="listing_image">
         </div>
-
-        <!-- Listing Card -->
-        <div class="card col-12 col-md-6 offset-md-3 show-card listing-card">
-            <img src="<%= listing.image.url %>" class="card-img-top show-img" alt="listing_image">
-            <div class="card-body">
-                <p class="card-text">
-                    <%= listing.description %>
-                </p>
-                <p class="card-text">Price: $ <%= listing.price.toLocaleString("en-US") %>
-                </p>
-                <p class="card-text">Location: <%= listing.location %>
-                </p>
-                <p class="card-text">Country: <%= listing.country %>
-                </p>
-                <p class="card-text">Owner: <i>
-                        <%= listing.owner.username %>
-                    </i></p>
-            </div>
+        <div class="card-body">
+            <p class="card-text"><%= listing.description %></p>
+            <p class="card-text">Price: $ <%= listing.price.toLocaleString("en-US") %></p>
+            <p class="card-text">Location: <%= listing.location %></p>
+            <p class="card-text">Country: <%= listing.country %></p>
+            <p class="card-text">Owner: <i><%= listing.owner.username %></i></p>
         </div>
+    </div>
 
-        <!-- Edit and Delete Buttons -->
-        <% if(currUser && currUser._id.equals(listing.owner._id)) { %>
-            <div class="btns col-12 col-md-6 offset-md-3">
-                <a href="/listings/<%= listing._id %>/edit"
-                    class="btn btn-dark col-12 col-md-1 offset-md-3 edit-btn">Edit</a>
-                <br>
-                <form method="post" action="/listings/<%= listing._id %>?_method=DELETE">
-                    <button class="btn btn-dark col-12 col-md-1 offset-md-5">Delete</button>
-                </form>
-            </div>
-            <% } %>
-            <!-- Book Now Button -->
-<!-- Book Now Button (Always Visible) -->
-<div class="col-12 col-md-6 offset-md-3 mb-3">
-    <% if (currUser) { %>
-        <!-- If the user is logged in, they can directly book -->
-        <a href="/listings/<%= listing._id %>/book" class="btn btn-primary col-12">Book Now</a>
-    <% } else { %>
-        <!-- If the user is not logged in, redirect to the login page -->
-        <a href="/login" class="btn btn-primary col-12">Log in to Book Now</a>
+    <!-- Edit and Delete Buttons -->
+    <% if(currUser && currUser._id.equals(listing.owner._id)) { %>
+        <div class="btns col-12 col-md-6 offset-md-3 animate__animated animate__fadeInUp">
+            <a href="/listings/<%= listing._id %>/edit" class="btn btn-dark col-12 col-md-1 offset-md-3 edit-btn animate-pulse">Edit</a>
+            <br>
+            <form method="post" action="/listings/<%= listing._id %>?_method=DELETE">
+                <button class="btn btn-dark col-12 col-md-1 offset-md-5 animate-pulse">Delete</button>
+            </form>
+        </div>
     <% } %>
-</div>
 
-                <!-- Leave a Review -->
-                <div class="col-12 col-md-6 offset-md-3 mb-3">
-                    <% if(currUser) { %>
-                        <hr>
-                        <h4>Leave a Review</h4>
-                        <form action="/listings/<%= listing._id %>/reviews" method="post" class="needs-validation"
-                            novalidate>
-                            <div class="mb-3 mt-3">
-                                <label for="rating" class="form-label">Rating</label>
-                                <fieldset class="starability-slot">
-                                    <input type="radio" id="no-rate" class="input-no-rate" name="review[rating]"
-                                        value="1" checked aria-label="No rating." />
-                                    <input type="radio" id="first-rate1" name="review[rating]" value="1" />
-                                    <label for="first-rate1" title="Terrible">1 star</label>
-                                    <input type="radio" id="first-rate2" name="review[rating]" value="2" />
-                                    <label for="first-rate2" title="Not good">2 stars</label>
-                                    <input type="radio" id="first-rate3" name="review[rating]" value="3" />
-                                    <label for="first-rate3" title="Average">3 stars</label>
-                                    <input type="radio" id="first-rate4" name="review[rating]" value="4" />
-                                    <label for="first-rate4" title="Very good">4 stars</label>
-                                    <input type="radio" id="first-rate5" name="review[rating]" value="5" />
-                                    <label for="first-rate5" title="Amazing">5 stars</label>
-                                </fieldset>
-                            </div>
-                            <div class="mb-3 mt-3">
-                                <label for="comment" class="form-label">Comment</label>
-                                <textarea name="review[comment]" id="comment" cols="30" rows="5" class="form-control"
-                                    required></textarea>
-                                <div class="invalid-feedback">Please add a review</div>
-                            </div>
-                            <button class="btn btn-outline-dark">Submit</button>
-                        </form>
-                        <hr>
-                        <% } %>
+    <!-- Book Now Button -->
+    <div class="col-12 col-md-6 offset-md-3 mb-3 animate__animated animate__fadeInUp">
+        <% if (currUser) { %>
+            <a href="/listings/<%= listing._id %>/book" class="btn btn-primary col-12 animate-bounce">Book Now</a>
+        <% } else { %>
+            <a href="/login" class="btn btn-primary col-12 animate-bounce">Log in to Book Now</a>
+        <% } %>
+    </div>
 
-                            <!-- All Reviews Section -->
-                            <% if(listing.reviews.length> 0) { %>
-                                <div class="row justify-content-center mt-4">
-                                    <div class="col-12 text-center">
-                                        <p><b>All Reviews</b></p>
-                                    </div>
-                                    <% for (let review of listing.reviews) { %>
-                                        <div class="col-12 col-md-5 mb-4">
-                                            <div class="card">
-                                                <div class="card-body">
-                                                    <h5 class="card-title">
-                                                        <%= review.author.username %>
-                                                    </h5>
-                                                    <p class="starability-result card-text"
-                                                        data-rating="<%= review.rating %>"></p>
-                                                    <p class="card-text">
-                                                        <%= review.comment %>
-                                                    </p>
-                                                    <form class="mb-3" method="post"
-                                                        action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=DELETE">
-                                                        <button class="btn btn-sm btn-dark">Delete</button>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <% } %>
-                                </div>
-                                <% } %>
+    <!-- Leave a Review -->
+    <div class="col-12 col-md-6 offset-md-3 mb-3 animate-fade-in">
+        <% if(currUser) { %>
+            <hr>
+            <h4>Leave a Review</h4>
+            <form action="/listings/<%= listing._id %>/reviews" method="post" class="needs-validation" novalidate>
+                <div class="mb-3 mt-3">
+                    <label for="rating" class="form-label">Rating</label>
+                    <fieldset class="starability-slot">
+                        <input type="radio" id="no-rate" class="input-no-rate" name="review[rating]" value="1" checked aria-label="No rating." />
+                        <input type="radio" id="first-rate1" name="review[rating]" value="1" />
+                        <label for="first-rate1" title="Terrible">1 star</label>
+                        <input type="radio" id="first-rate2" name="review[rating]" value="2" />
+                        <label for="first-rate2" title="Not good">2 stars</label>
+                        <input type="radio" id="first-rate3" name="review[rating]" value="3" />
+                        <label for="first-rate3" title="Average">3 stars</label>
+                        <input type="radio" id="first-rate4" name="review[rating]" value="4" />
+                        <label for="first-rate4" title="Very good">4 stars</label>
+                        <input type="radio" id="first-rate5" name="review[rating]" value="5" />
+                        <label for="first-rate5" title="Amazing">5 stars</label>
+                    </fieldset>
                 </div>
-
-                <!-- Map Section -->
-                <div class="col-12 col-md-6 offset-md-3 mb-3">
-                    <h3>Where you'll be</h3>
-                    <div id="map" style="height: 400px;"></div>
-                    <hr>
-
+                <div class="mb-3 mt-3">
+                    <label for="comment" class="form-label">Comment</label>
+                    <textarea name="review[comment]" id="comment" cols="30" rows="5" class="form-control" required></textarea>
+                    <div class="invalid-feedback">Please add a review</div>
                 </div>
+                <button class="btn btn-outline-dark animate-pulse">Submit</button>
+            </form>
+            <hr>
+        <% } %>
 
-                <!-- Weather Section -->
-                <% if (weather) { %>
-                    <div class="col-12 col-md-6 offset-md-3 mb-3">
-                        <!-- Heading outside the card -->
-                        <h3 class="text-center mb-3">Weather Information</h3>
-
-                        <!-- Card to display weather details -->
-                        <div class="card shadow-sm">
+        <!-- All Reviews Section -->
+        <% if(listing.reviews.length > 0) { %>
+            <div class="row justify-content-center mt-4">
+                <div class="col-12 text-center">
+                    <p><b>All Reviews</b></p>
+                </div>
+                <% for (let review of listing.reviews) { %>
+                    <div class="col-12 col-md-5 mb-4 animate-fade-in">
+                        <div class="card animate-scale">
                             <div class="card-body">
-                                <div class="row">
-                                    <!-- City and Temperature -->
-                                    <div class="col-12 col-md-6">
-                                        <p><strong>City:</strong>
-                                            <%= weather.city %>
-                                        </p>
-                                        <p><strong>Temperature:</strong>
-                                            <%= weather.temperature %> °C
-                                        </p>
-                                        <p><strong>Min Temp:</strong>
-                                            <%= weather.minTemperature %> °C
-                                        </p>
-                                        <p><strong>Max Temp:</strong>
-                                            <%= weather.maxTemperature %> °C
-                                        </p>
-                                    </div>
-
-                                    <!-- Weather Description, Feels Like, Humidity and Icon -->
-                                    <div class="col-12 col-md-6">
-                                        <p><strong>Weather:</strong>
-                                            <%= weather.description %>
-                                        </p>
-                                        <p><strong>Feels Like:</strong>
-                                            <%= weather.feelsLike %> °C
-                                        </p>
-                                        <p><strong>Humidity:</strong>
-                                            <%= weather.humidity %> %
-                                        </p>
-
-                                        <!-- Weather Icon -->
-                                        <img src="http://openweathermap.org/img/wn/<%= weather.icon %>@2x.png"
-                                            alt="<%= weather.description %>"
-                                            style="max-width: 100px; max-height: 100px;">
-                                    </div>
-                                </div>
+                                <h5 class="card-title"><%= review.author.username %></h5>
+                                <p class="starability-result card-text" data-rating="<%= review.rating %>"></p>
+                                <p class="card-text"><%= review.comment %></p>
+                                <form class="mb-3" method="post" action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=DELETE">
+                                    <button class="btn btn-sm btn-dark animate-pulse">Delete</button>
+                                </form>
                             </div>
                         </div>
                     </div>
-                    <% } else { %>
-                        <p>No weather information available.</p>
-                        <% } %>
-
-
+                <% } %>
+            </div>
+        <% } %>
     </div>
 
-    <script src="/js/map.js"></script>
+    <!-- Map Section -->
+    <div class="col-12 col-md-6 offset-md-3 mb-3 animate-fade-in">
+        <h3>Where you'll be</h3>
+        <div id="map" style="height: 400px;"></div>
+        <hr>
+    </div>
+
+    <!-- Weather Section -->
+    <% if (weather) { %>
+        <div class="col-12 col-md-6 offset-md-3 mb-3 animate-fade-in">
+            <h3 class="text-center mb-3">Weather Information</h3>
+            <div class="card shadow-sm animate-scale">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-12 col-md-6">
+                            <p><strong>City:</strong> <%= weather.city %></p>
+                            <p><strong>Temperature:</strong> <%= weather.temperature %> °C</p>
+                            <p><strong>Min Temp:</strong> <%= weather.minTemperature %> °C</p>
+                            <p><strong>Max Temp:</strong> <%= weather.maxTemperature %> °C</p>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <p><strong>Weather:</strong> <%= weather.description %></p>
+                            <p><strong>Feels Like:</strong> <%= weather.feelsLike %> °C</p>
+                            <p><strong>Humidity:</strong> <%= weather.humidity %> %</p>
+                            <img src="http://openweathermap.org/img/wn/<%= weather.icon %>@2x.png"
+                                 alt="<%= weather.description %>"
+                                 class="weather-icon"
+                                 style="max-width: 100px; max-height: 100px;">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <% } else { %>
+        <p class="animate-fade-in">No weather information available.</p>
+    <% } %>
+</div>
+
+<script src="/js/map.js"></script>
+
+<script>
+    // Animation script
+    document.addEventListener('DOMContentLoaded', () => {
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Fade in animations
+        gsap.utils.toArray('.animate-fade-in').forEach(element => {
+            gsap.from(element, {
+                opacity: 0,
+                y: 20,
+                duration: 1,
+                ease: 'power2.out',
+                scrollTrigger: {
+                    trigger: element,
+                    start: 'top 80%',
+                }
+            });
+        });
+
+        // Pulse animation for buttons
+        gsap.utils.toArray('.animate-pulse').forEach(element => {
+            gsap.to(element, {
+                scale: 1.05,
+                duration: 0.5,
+                repeat: -1,
+                yoyo: true,
+                ease: 'power1.inOut'
+            });
+        });
+
+        // Bounce animation for Book Now button
+        gsap.to('.animate-bounce', {
+            y: -10,
+            duration: 0.5,
+            repeat: -1,
+            yoyo: true,
+            ease: 'power1.inOut'
+        });
+
+        // Weather icon rotation on hover
+        const weatherIcon = document.querySelector('.weather-icon');
+        if (weatherIcon) {
+            weatherIcon.addEventListener('mouseenter', () => {
+                gsap.to(weatherIcon, { rotation: 360, duration: 0.5 });
+            });
+            weatherIcon.addEventListener('mouseleave', () => {
+                gsap.to(weatherIcon, { rotation: 0, duration: 0.5 });
+            });
+        }
+
+        // Animate map on scroll
+        gsap.from('#map', {
+            opacity: 0,
+            scale: 0.8,
+            duration: 1,
+            scrollTrigger: {
+                trigger: '#map',
+                start: 'top 80%',
+            }
+        });
+
+        // Animate reviews on scroll
+        gsap.utils.toArray('.card').forEach((card, index) => {
+            gsap.from(card, {
+                opacity: 0,
+                x: index % 2 === 0 ? -50 : 50,
+                duration: 0.8,
+                scrollTrigger: {
+                    trigger: card,
+                    start: 'top 80%',
+                }
+            });
+        });
+    });
+</script>

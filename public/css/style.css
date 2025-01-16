@@ -256,7 +256,7 @@ footer .small {
 
 /* Cards */
 
-.listing-card {
+.listing-card1 {
     border: none !important;
     border-bottom: 2rem;
 }
@@ -342,48 +342,102 @@ footer .small {
 }
 
 
-/* Show Page */
-.show-img {
-    height: 30vh;
-}
-
-.btns {
-    display: flex;
-    flex-wrap: wrap;
-}
-
-.show-card {
-    padding-left: 0;
-    padding-right: 0;
-}
-
-/* Maps */
-
-.map-container {
-    height: 400px;
-    width: 100%;
-    margin: auto;
-}
-
-@media (max-width: 768px) {
-
-    .starability-slot {
-        display: flex;
-        justify-content: space-between;
+    /* Show Page */
+    .show-img {
+        height: 30vh;
+        width: auto; /* This ensures the image maintains its aspect ratio */
+        margin-left: auto; /* Centers the image horizontally */
+        margin-right: auto; /* Centers the image horizontally */
+        display: block; /* Makes the image behave as a block-level element */
     }
+    
+        .btns {
+            display: flex;
+            flex-wrap: wrap;
+        }
+    
+        .show-card {
+            padding-left: 0;
+            padding-right: 0;
+        }
+    
+        /* Maps */
+        .map-container {
+            height: 400px;
+            width: 100%;
+            margin: auto;
+        }
+    
+        .custom-gutter {
+            --bs-gutter-x: 1.5rem;
+            --bs-gutter-y: 0;
+            display: flex;
+            flex-wrap: wrap;
+            margin-top: calc(-1 * var(--bs-gutter-y));
+        }
+    
+        @media (max-width: 768px) {
+            .starability-slot {
+                display: flex;
+                justify-content: space-between;
+            }
+    
+        .card {
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .image-container {
+            margin-left: 10px; /* Adds margin to the left */
+            margin-right: 10px; /* Adds margin to the right */
+        }
+    
+        .show-img {
+            width: 100%; /* Makes the image responsive */
+            height: auto; /* Maintains the aspect ratio */
+        }
+            #map {
+                height: 200px;
+            }
+        }
+    
+        /* New animation styles */
+        .animate-fade-in {
+            transform: translateY(20px);
+        }
+    
+        .animate-scale {
+            transition: transform 0.3s ease;
+        }
+    
+        .animate-scale:hover {
+            transform: scale(1.05);
+        }
+    
 
-    .card {
-        margin-left: 0;
-        margin-right: 0;
-    }
-
-    #map {
-        height: 200px;
-    }
-}
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+    
+        .animate-pulse {
+            animation: pulse 2s infinite;
+        }
+    
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+    
+        .weather-icon {
+            transition: transform 0.3s ease;
+        }
+    
+        .weather-icon:hover {
+            transform: rotate(360deg) scale(1.2);
+        }
 
 /* Index.ejs Styles */
-
 #filters {
     display: flex;
     flex-wrap: wrap;
@@ -395,12 +449,14 @@ footer .small {
     text-align: center;
     margin-top: 2rem;
     opacity: 0.7;
+    transition: all 0.3s ease;
 }
 
 .filter:hover {
     opacity: 1;
     cursor: pointer;
     color: #fe424d;
+    transform: scale(1.1);
 }
 
 .filter p {
@@ -408,7 +464,6 @@ footer .small {
 }
 
 /* Tax Toggle */
-
 .tax-info {
     display: none;
 }
@@ -426,23 +481,60 @@ footer .small {
 /* Custom Toggle Switch */
 .tax-toggle .form-check-input:checked {
     background-color: #fe424d;
-    /* Change the switch background color */
     border-color: #fe424d;
-    /* Change the border color */
 }
 
 .tax-toggle .form-check-input:focus {
     box-shadow: 0 0 0 0.25rem rgba(254, 66, 77, 0.25);
-    /* Optional: Add a soft focus glow effect */
 }
 
 .tax-toggle .form-check-input {
     background-color: #ccc;
-    /* Set default color for the unchecked state */
     border-color: #ccc;
-    /* Set default border color */
 }
 
+/* New animation styles */
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0px); }
+}
+
+.listing-card {
+    transition: all 0.3s ease;
+    opacity: 0;
+    transform: translateY(20px);
+    border: none !important;
+
+}
+
+.listing-card:hover {
+    transform: translateY(-10px) scale(1.05);
+}
+
+.listing-card:hover img {
+    filter: brightness(0.9);
+}
+
+.animate-float {
+    animation: float 3s ease-in-out infinite;
+}
+
+.mobile-search-bar {
+    transition: all 0.3s ease;
+}
+
+.mobile-search-bar:focus-within {
+    transform: scale(1.05);
+}
+
+.search-btn {
+    transition: all 0.3s ease;
+}
+
+.search-btn:hover {
+    transform: translateX(5px);
+}
 
 /* Mobile view styling */
 @media screen and (max-width: 768px) {

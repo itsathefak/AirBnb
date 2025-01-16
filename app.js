@@ -19,6 +19,8 @@ const userRouter = require("./routes/user.js");
 const newsletterRouter = require("./routes/newsletter");
 const bookingRoutes = require("./routes/booking");
 const contactRoutes = require("./routes/contact");
+const aboutRoutes = require("./routes/about");
+
 
 
 
@@ -104,6 +106,7 @@ app.use("/", userRouter);
 app.use("/newsletter", newsletterRouter);
 app.use("/listings", bookingRoutes);
 app.use("/contact", contactRoutes);
+app.use("/about", aboutRoutes);
 
 
 app.all("*", (req, res, next) => {
