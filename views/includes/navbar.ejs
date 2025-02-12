@@ -26,102 +26,141 @@
 
     .search-input:focus {
         border-color: #fe424d !important;
-        /* Set the border color to #fe424d */
         box-shadow: 0 0 0 0.25rem rgba(254, 66, 77, 0.25) !important;
-        /* Optional: Add a soft shadow to match the border color */
         outline: none;
-        /* Remove default outline */
     }
 
-    /* Normal styling for the List Luxe link */
     .nav-item.nav-link {
         color: #555;
-        /* Default text color */
         transition: color 0.3s ease, background-color 0.3s ease, padding 0.3s ease;
-        /* Smooth transition for color, background and padding */
         display: inline-block;
-        /* Ensures padding works correctly on the link */
         padding: 0.5rem 1rem;
-        /* Set initial padding for consistency */
         border-radius: 25px;
-        /* Rounded corners */
     }
 
-    /* Hover effect for List Luxe link */
     .nav-item.nav-link:hover {
         color: #fff !important;
-        /* White text on hover */
         background-color: #fe424d;
-        /* Background color on hover */
         padding: 0.5rem 1rem;
-        /* Maintain consistent padding when hovered */
     }
 
+    /* Profile Icon Dropdown (Hidden on Mobile) */
+    .profile-dropdown {
+        position: relative;
+        display: inline-block;
+    }
 
+    .profile-icon {
+        font-size: 1.5rem;
+    color: #fe424d;  
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 50%;
+    transition: background-color 0.3s ease;
+    }
 
+    .profile-icon:hover {
+        background-color: #f1f1f1;
+    }
 
-    /* Make the search bar and button responsive */
-    @media (max-width: 767px) {
-        .navbar-nav {
-            flex-direction: column;
-            text-align: center;
-        }
+    .dropdown-menu {
+        position: absolute;
+        right: 0;
+        top: 100%;
+        background: white;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+        border-radius: 5px;
+        display: none;
+        flex-direction: column;
+        width: 150px;
+    }
 
-        /* Ensure Explore link is first on mobile view */
-        .navbar-nav .nav-item:first-child {
-            order: -1;
-            /* Move the first item (Explore) to the top */
-        }
+    .dropdown-menu a {
+        text-decoration: none;
+        padding: 10px;
+        color: black;
+        display: block;
+        transition: background 0.2s ease;
+    }
 
-        .mobile-search-bar {
-            order: 1;
-            /* Keeps the search bar below Explore in mobile */
-            width: 100%;
-        }
+    .dropdown-menu a:hover {
+        background: #fe424d;
+        color: white;
+    }
 
-        .search-btn {
-            padding: 0.5rem 1rem;
-            font-size: 1rem;
-        }
+    .profile-dropdown:hover .dropdown-menu {
+        display: flex;
+    }
 
-        .search-input {
-            padding: 0.5rem 2rem;
-            font-size: 1rem;
-            width: 100%;
+    /* Hide Profile Icon on Mobile */
+    @media (max-width: 768px) {
+        .profile-dropdown {
+            display: none;
         }
     }
 </style>
 
-
 <nav class="navbar navbar-expand-md navbar-light bg-body-light border-bottom sticky-top">
-    <a class="navbar-brand" href="/listings">        <img src="/src/img/logo.png" alt="Logo" class="logo">
+    <a class="navbar-brand" href="/listings">
+        <img src="/src/img/logo.png" alt="Logo" class="logo">
     </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
         aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
+
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
             <a class="nav-item nav-link" href="/listings">Explore</a>
         </div>
+
         <div class="navbar-nav ms-auto">
-            <!-- Hide the search form for mobile/tablet views -->
+            <!-- Search Bar -->
             <form class="d-flex navbar-nav-form" action="/listings/search" method="GET">
-                <input class="form-control me-2 search-input" type="text" name="query" placeholder="Search Destination" aria-label="Search">
-                <button class="btn search-btn my-2 my-sm-0" type="submit"><i class="fa-solid fa-magnifying-glass"></i>Search</button>
+                <input class="form-control me-2 search-input" type="text" name="query" placeholder="Search Destination"
+                    aria-label="Search">
+                <button class="btn search-btn my-2 my-sm-0" type="submit">
+                    <i class="fa-solid fa-magnifying-glass"></i>Search
+                </button>
             </form>
         </div>
+
         <div class="navbar-nav ms-auto">
             <div class="nav-link-container">
                 <a class="nav-item nav-link" href="/listings/new">List Luxe</a>
             </div>
-            <% if(!currUser){ %>
-                <a class="nav-item nav-link" href="/signup"><b>Sign up</b></a>
-                <a class="nav-item nav-link" href="/login"><b>Login</b></a>
+
+            <!-- Mobile View Dropdown (Visible in Mobile) -->
+            <div class="d-md-none">
+                <% if (currUser) { %>
+                    <a class="nav-item nav-link" href="/profile">Profile</a>
+                    <a class="nav-item nav-link" href="/about">About</a>
+                    <a class="nav-item nav-link" href="/contact">Contact</a>
+                    <a class="nav-item nav-link" href="/logout">Logout</a>
+                <% } else { %>
+                    <a class="nav-item nav-link" href="/login">Login</a>
+                    <a class="nav-item nav-link" href="/signup">Sign Up</a>
                 <% } %>
-                    <% if(currUser){ %>
-                        <a class="nav-item nav-link" href="/logout">Logout</a>
-                        <% } %>
+            </div>
+
+            <!-- Desktop View Profile Icon (Hidden in Mobile) -->
+            <div class="profile-dropdown d-none d-md-inline">
+                <i class="fa-solid fa-user profile-icon"></i>
+                <div class="dropdown-menu">
+                    <% if (currUser) { %>
+                        <a href="/profile">Profile</a>
+                        <a href="/about">About</a>
+                        <a href="/contact">Contact</a>
+                        <a href="/logout">Logout</a>
+                    <% } else { %>
+                        <a href="/login">Login</a>
+                        <a href="/signup">Sign Up</a>
+                    <% } %>
+                </div>
+            </div>
         </div>
     </div>
 </nav>
+
+<!-- Font Awesome for the Profile Icon -->
+<script src="https://kit.fontawesome.com/YOUR_KIT_CODE.js" crossorigin="anonymous"></script>
